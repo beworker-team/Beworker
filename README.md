@@ -1,2 +1,2 @@
 # Beworker
-Developpement d'une application de recommandation d'emploi au Cameroun
+Développement d'une application de recommandation d'emploi au Cameroun
