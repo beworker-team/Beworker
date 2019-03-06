@@ -26,24 +26,22 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     /*
-     * la variable viewpager fait reference au layout qui va contenir les differents
-     * fragment de notree activite
-     * la variable tablayout fait reference au layout qui nous permet de navigeuer entre:
+     * La variable viewpager fait référence au layout qui va contenir les differents
+     * fragments de notre activité
+     * La variable tablayout fait référence au layout qui nous permet de navigeuer entre:
      *  -home
-     *   -profil
-     *   -etc
+     *  -profil
+     *  -...etc
      * */
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Intent login, inscription;
-    private ViewFlipper viewFlipper;
-    private ImageView preferences, home, notifications, profil;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page_online);
+        setContentView(R.layout.home_page_offline);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -63,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         tabLayout = (TabLayout)findViewById(R.id.tab_layout_main);
         viewPager = (ViewPager)findViewById(R.id.view_pager_main);
 
-
+        /*
         //on declare notre pagerAdapter
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         //on itere tous les tabs et on leur associe leurs icones
         for(int i=0; i<icon.length;i++){
             tabLayout.getTabAt(i).setIcon(icon[i]);
-        }
+        }*/
 
     }
 
