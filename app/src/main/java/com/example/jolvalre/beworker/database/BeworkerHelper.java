@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class BeworkerHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_TABLE_CHERCHEUR = "CREATE TABLE " + DatabaseContract.Chercheur.TABLE_NAME + "("
-            + DatabaseContract.Chercheur.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + DatabaseContract.Chercheur._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + DatabaseContract.Chercheur.COLUMN_EMAIL + " TEXT NOT NULL UNIQUE, "
             + DatabaseContract.Chercheur.COLUMN_NOM + " TEXT NOT NULL, "
             + DatabaseContract.Chercheur.COLUMN_PRENOM + " TEXT NOT NULL, "
@@ -16,36 +16,40 @@ public class BeworkerHelper extends SQLiteOpenHelper {
             + DatabaseContract.Chercheur.COLUMN_TELEPHONE + " TEXT NOT NULL, "
             + DatabaseContract.Chercheur.COLUMN_GENRE + " TEXT NOT NULL, "
             + DatabaseContract.Chercheur.COLUMN_STATUT + " TEXT NOT NULL, "
-            + DatabaseContract.Chercheur.COLUMN_DATE_DE_NAISSANCE + " DATE NOT NULL, "
+            + DatabaseContract.Chercheur.COLUMN_AGE + " TEXT NOT NULL, "
             + DatabaseContract.Chercheur.COLUMN_VILLE + " TEXT NOT NULL);";
 
     public static final String CREATE_TABLE_CV = "CREATE TABLE " + DatabaseContract.CV.TABLE_NAME + "("
-            + DatabaseContract.CV.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + DatabaseContract.CV._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + DatabaseContract.CV.COLUMN_ID_CHERCHEUR + " INTEGER NOT NULL, "
             + DatabaseContract.CV.COLUMN_NUMERO_CV + " INTEGER NOT NULL, "
             + DatabaseContract.CV.COLUMN_PATH + " TEXT NOT NULL, "
             + "FOREIGN KEY (" + DatabaseContract.CV.COLUMN_ID_CHERCHEUR
-            + ") REFERENCES " + DatabaseContract.Chercheur.TABLE_NAME + "(" + DatabaseContract.Chercheur.COLUMN_ID + "));";
+            + ") REFERENCES " + DatabaseContract.Chercheur.TABLE_NAME + "(" + DatabaseContract.Chercheur._ID + "));";
 
     public static final String CREATE_TABLE_OFFRE = "CREATE TABLE " + DatabaseContract.Offre.TABLE_NAME + "("
-            + DatabaseContract.Offre.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + DatabaseContract.Offre._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + DatabaseContract.Offre.COLUMN_ID_EMPLOYEUR + " INTEGER NOT NULL, "
             + DatabaseContract.Offre.COLUMN_POSTE + " TEXT NOT NULL, "
             + DatabaseContract.Offre.COLUMN_DATE_POST + " DATE NOT NULL, "
             + DatabaseContract.Offre.COLUMN_VILLE + " TEXT NOT NULL, "
             + DatabaseContract.Offre.COLUMN_DESCRIPTION + " TEXT NOT NULL);";
 
-    public static final String CREATE_TABLE_POSTULER = "CREATE TABLE " + DatabaseContract.Postuler.TABLE_NAME + "("
+    /*public static final String CREATE_TABLE_POSTULER = "CREATE TABLE " + DatabaseContract.Postuler.TABLE_NAME + "("
             + DatabaseContract.Postuler.COLUMN_ID_CHERCHEUR + " INTEGER PRIMARY KEY, "
             + DatabaseContract.Postuler.COLUMN_ID_OFFRE + " INTEGER PRIMARY KEY, "
             + DatabaseContract.Postuler.COLUMN_DATE + " DATE NOT NULL, "
             + "FOREIGN KEY (" + DatabaseContract.Postuler.COLUMN_ID_CHERCHEUR
-            + ") REFERENCES " + DatabaseContract.Chercheur.TABLE_NAME + "(" + DatabaseContract.Chercheur.COLUMN_ID + "),"
+            + ") REFERENCES " + DatabaseContract.Chercheur.TABLE_NAME + "(" + DatabaseContract.Chercheur._ID + "),"
             + "FOREIGN KEY (" + DatabaseContract.Postuler.COLUMN_ID_OFFRE
-            + ") REFERENCES " + DatabaseContract.Offre.TABLE_NAME + "(" + DatabaseContract.Offre.COLUMN_ID + "));";
+            + ") REFERENCES " + DatabaseContract.Offre.TABLE_NAME + "(" + DatabaseContract.Offre._ID + "));";
+*/
 
-    public BeworkerHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public static final String BEWORKER_DATA_BASE_NAME = "beworker.db";
+    public static final int VERSION_NUMBER = 1;
+
+    public BeworkerHelper(Context context) {
+        super(context, BEWORKER_DATA_BASE_NAME, null, VERSION_NUMBER);
     }
 
     @Override
@@ -53,7 +57,7 @@ public class BeworkerHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CHERCHEUR);
         db.execSQL(CREATE_TABLE_CV);
         db.execSQL(CREATE_TABLE_OFFRE);
-        db.execSQL(CREATE_TABLE_POSTULER);
+        //db.execSQL(CREATE_TABLE_POSTULER);
     }
 
     @Override
@@ -61,7 +65,7 @@ public class BeworkerHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + DatabaseContract.Chercheur.TABLE_NAME + ";");
         db.execSQL("DROP TABLE " + DatabaseContract.CV.TABLE_NAME + ";");
         db.execSQL("DROP TABLE " + DatabaseContract.Offre.TABLE_NAME + ";");
-        db.execSQL("DROP TABLE " + DatabaseContract.Postuler.TABLE_NAME + ";");
+        //db.execSQL("DROP TABLE " + DatabaseContract.Postuler.TABLE_NAME + ";");
         onCreate(db);
     }
 
@@ -70,7 +74,7 @@ public class BeworkerHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + DatabaseContract.Chercheur.TABLE_NAME + ";");
         db.execSQL("DROP TABLE " + DatabaseContract.CV.TABLE_NAME + ";");
         db.execSQL("DROP TABLE " + DatabaseContract.Offre.TABLE_NAME + ";");
-        db.execSQL("DROP TABLE " + DatabaseContract.Postuler.TABLE_NAME + ";");
+       // db.execSQL("DROP TABLE " + DatabaseContract.Postuler.TABLE_NAME + ";");
         onCreate(db);
     }
 }

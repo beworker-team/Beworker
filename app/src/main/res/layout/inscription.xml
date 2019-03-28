@@ -12,32 +12,35 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            android:paddingLeft="16dp">
 
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimaryDark">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:src="@drawable/ic_arrow_back_black_24dp" />
 
-                <ImageView
-                    android:id="@+id/return_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:src="@drawable/ic_keyboard_backspace_black_24dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="25dp"
+                android:text="@string/inscription"
+                android:textColor="@color/colorWhite"
+                android:textSize="21dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_inscription"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="18sp"/>
-            </android.support.v7.widget.Toolbar>
+        </android.support.v7.widget.Toolbar>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:alpha=".4"
+            android:background="@color/colorWhite">
 
-        </android.support.design.widget.AppBarLayout>
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -59,6 +62,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginBottom="24dp"
                         android:layout_weight="1.5"
                         android:gravity="center">
 
@@ -74,9 +79,11 @@
                             android:layout_toRightOf="@+id/img"
                             android:paddingLeft="5dp"
                             android:paddingTop="2dp"
-                            android:text="VOTRE PROFIL"
+                            android:text="@string/votre_profil"
                             android:textColor="#000"
-                            android:textSize="16dp" />
+                            android:textSize="16dp"
+
+                            />
 
                     </RelativeLayout>
 
@@ -92,23 +99,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:padding="12dp">
+                            android:padding="12dp"
+
+                            >
 
                             <ImageButton
                                 android:id="@+id/photo_profil"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="#fff"
-                                android:src="@drawable/ic_account_circle_black2_24dp"/>
+                                android:background="@color/colorWhite"
+                                android:src="@drawable/ic_account_circle_black_24dp"
 
-                            <android.support.design.widget.FloatingActionButton
+                                />
+
+                            <ImageButton
                                 android:id="@+id/fab"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_marginTop="36dp"
-                                app:srcCompat="@drawable/ic_camera_alt_black_24dp"
-                                tools:ignore="VectorDrawableCompat" />
+                                android:layout_centerVertical="true"
+                                android:background="@color/colorIncolor"
+                                android:paddingLeft="72dp"
+                                android:paddingTop="45dp"
+                                android:src="@drawable/ic_photo_camera_black_24dp" />
 
                         </RelativeLayout>
 
@@ -117,17 +129,21 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:padding="12dp">
+                            android:padding="12dp"
+
+                            >
 
                             <android.support.design.widget.TextInputLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+
+                                >
 
                                 <EditText
                                     android:id="@+id/nom"
                                     android:layout_width="270dp"
                                     android:layout_height="wrap_content"
-                                    android:hint="Nom *"
+                                    android:hint="@string/nom"
                                     android:inputType="textPersonName"
 
 
@@ -157,7 +173,7 @@
                                     android:id="@+id/prenom"
                                     android:layout_width="270dp"
                                     android:layout_height="wrap_content"
-                                    android:hint="Prenom *"
+                                    android:hint="@string/prenom"
                                     android:inputType="text"
 
                                     />
@@ -204,7 +220,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Connectez-vous ici"
+                                android:text="@string/connectez_vous_ici"
                                 android:textColor="#006db3" />
 
 
@@ -231,7 +247,8 @@
                 <LinearLayout
                     android:id="@+id/page2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"
                     android:orientation="vertical"
                     android:visibility="gone"
 
@@ -239,8 +256,9 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1.5"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginBottom="24dp"
                         android:gravity="center">
 
                         <ImageView
@@ -255,8 +273,8 @@
                             android:layout_toRightOf="@+id/img2"
                             android:paddingLeft="5dp"
                             android:paddingTop="2dp"
-                            android:text="COMPLETEZ PROFIL"
-                            android:textColor="#000"
+                            android:text="@string/completez_profil"
+                            android:textColor="@color/colorBlack"
                             android:textSize="16dp"
 
                             />
@@ -291,7 +309,7 @@
                                     android:id="@+id/age"
                                     android:layout_width="270dp"
                                     android:layout_height="wrap_content"
-                                    android:hint="Age *"
+                                    android:hint="@string/date_de_naissance"
                                     android:inputType="phone|number"
 
 
@@ -319,7 +337,7 @@
                                     android:id="@+id/ville"
                                     android:layout_width="270dp"
                                     android:layout_height="wrap_content"
-                                    android:hint="ville "
+                                    android:hint="@string/ville"
                                     android:inputType="text"
 
 
@@ -341,17 +359,16 @@
                                 android:id="@+id/Tsexe"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="sexe:"
-                                android:textColor="#000"
+                                android:text="@string/sexe"
+                                android:textColor="@color/colorBlack"
                                 android:textSize="12dp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/Tsexe"
-                                android:paddingLeft="12dp"
                                 android:text="*"
-                                android:textColor="#B14343" />
+                                android:textColor="@color/colorRouge_vin" />
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
@@ -362,15 +379,15 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Masculin"
-                                    android:textColor="#000" />
+                                    android:text="@string/masculin"
+                                    android:textColor="@color/colorBlack" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="36dp"
-                                    android:text="Feminin"
-                                    android:textColor="#000"
+                                    android:text="@string/feminin"
+                                    android:textColor="@color/colorBlack"
 
                                     />
 
@@ -444,7 +461,7 @@
                                     android:id="@+id/precedant2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/ron2"
+                                    android:background="@drawable/ron"
                                     android:src="@drawable/black_24dp"
 
                                     />
@@ -461,7 +478,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Connectez-vous ici"
+                                android:text="@string/connectez_vous_ici"
                                 android:textColor="#006db3" />
 
 
@@ -486,14 +503,16 @@
                 <LinearLayout
                     android:id="@+id/page3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"
                     android:orientation="vertical"
                     android:visibility="gone">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginBottom="24dp"
                         android:gravity="center">
 
                         <ImageView
@@ -508,8 +527,8 @@
                             android:layout_toRightOf="@+id/img3"
                             android:paddingLeft="5dp"
                             android:paddingTop="2dp"
-                            android:text="VOS CONTACT"
-                            android:textColor="#000"
+                            android:text="@string/vos_contact"
+                            android:textColor="@color/colorBlack"
                             android:textSize="16dp"
 
                             />
@@ -544,7 +563,7 @@
                                     android:id="@+id/email"
                                     android:layout_width="270dp"
                                     android:layout_height="wrap_content"
-                                    android:hint="Email *"
+                                    android:hint="@string/email"
                                     android:inputType="textWebEmailAddress"
 
                                     />
@@ -567,7 +586,7 @@
                                     android:id="@+id/telephone"
                                     android:layout_width="270dp"
                                     android:layout_height="wrap_content"
-                                    android:hint="Telephone"
+                                    android:hint="@string/telephone"
                                     android:inputType="phone" />
                             </android.support.design.widget.TextInputLayout>
 
@@ -593,7 +612,7 @@
                                     android:id="@+id/adresse"
                                     android:layout_width="270dp"
                                     android:layout_height="wrap_content"
-                                    android:hint="Adresse"
+                                    android:hint="@string/adresse"
                                     android:inputType="textPostalAddress"
 
 
@@ -640,7 +659,7 @@
                                     android:id="@+id/precedant3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/ron2"
+                                    android:background="@drawable/ron"
                                     android:src="@drawable/black_24dp"
 
                                     />
@@ -657,7 +676,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Connectez-vous ici"
+                                android:text="@string/connectez_vous_ici"
                                 android:textColor="#006db3" />
 
 
@@ -678,10 +697,193 @@
                 </LinearLayout>
 
 
+
+
+
+
+
+
+
                 <LinearLayout
                     android:id="@+id/page4"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginBottom="24dp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/img5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_indeterminate_check_box_black_24dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/img5"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="2dp"
+                            android:text="@string/autres"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="16dp"
+
+                            />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="344dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:background="@drawable/rectange"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="12dp"
+
+                            >
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                >
+
+                                <EditText
+                                    android:id="@+id/domaine"
+                                    android:layout_width="270dp"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/domaine"
+                                    android:inputType="textAutoCorrect"
+
+                                    />
+                            </android.support.design.widget.TextInputLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="12dp">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <EditText
+                                    android:id="@+id/statut"
+                                    android:layout_width="270dp"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/statut"
+                                    android:inputType="text" />
+                            </android.support.design.widget.TextInputLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:paddingTop="48dp"
+
+                            >
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:paddingRight="22dp"
+
+                                >
+
+                                <ImageButton
+                                    android:id="@+id/suivant4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/ron"
+                                    android:src="@drawable/ic_arrow_forward_black_24dp"
+
+                                    />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="22dp"
+
+                                >
+
+                                <ImageButton
+                                    android:id="@+id/precedant4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/ron"
+                                    android:src="@drawable/black_24dp"
+
+                                    />
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/connectez_vous_ici"
+                                android:textColor="@color/colorPrimaryDark" />
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingRight="32dp">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/page5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"
                     android:orientation="vertical"
                     android:visibility="gone"
 
@@ -689,8 +891,9 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1.5"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginBottom="24dp"
                         android:gravity="center">
 
                         <ImageView
@@ -705,7 +908,7 @@
                             android:layout_toRightOf="@+id/img4"
                             android:paddingLeft="5dp"
                             android:paddingTop="2dp"
-                            android:text="SECURISEZ VOUS"
+                            android:text="@string/securisez_vous"
                             android:textColor="#000"
                             android:textSize="16dp"
 
@@ -744,7 +947,7 @@
                                     android:id="@+id/password"
                                     android:layout_width="270dp"
                                     android:layout_height="wrap_content"
-                                    android:hint="Password *"
+                                    android:hint="@string/password"
                                     android:inputType="textPassword"
 
                                     />
@@ -769,7 +972,7 @@
                                     android:id="@+id/confirme_password"
                                     android:layout_width="270dp"
                                     android:layout_height="wrap_content"
-                                    android:hint="confirmer password"
+                                    android:hint="@string/confirmer_password"
                                     android:inputType="textPassword" />
                             </android.support.design.widget.TextInputLayout>
 
@@ -794,25 +997,15 @@
                                 >
 
                                 <ImageButton
-                                    android:id="@+id/suivant4"
+                                    android:id="@+id/suivant5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/ron"
-                                    android:src="@drawable/ic_arrow_forward_black_24dp"
+                                    android:src="@drawable/ic_done_black_24dp"
 
                                     />
 
                             </RelativeLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginBottom="7dp"
-                                android:paddingRight="16dp"
-                                android:text="Terminer"
-                                android:textColor="#00F77C" />
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
@@ -822,10 +1015,10 @@
                                 >
 
                                 <ImageButton
-                                    android:id="@+id/precedant4"
+                                    android:id="@+id/precedant5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/ron2"
+                                    android:background="@drawable/ron"
                                     android:src="@drawable/black_24dp"
 
                                     />
@@ -842,7 +1035,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Connectez-vous ici"
+                                android:text="@string/connectez_vous_ici"
                                 android:textColor="#006db3" />
 
 
@@ -861,6 +1054,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
 
             </LinearLayout>
         </ScrollView>

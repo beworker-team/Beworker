@@ -39,6 +39,9 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".InscriptionActivity"></activity>
+        <provider
+            android:authorities="com.example.jolvalre.beworker"
+            android:name=".database.BeworkerProvider"/>
     </application>
 
 </manifest>
