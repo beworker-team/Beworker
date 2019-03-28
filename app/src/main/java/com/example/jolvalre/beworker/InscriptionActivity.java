@@ -1,10 +1,12 @@
 package com.example.jolvalre.beworker;
 
+import android.content.ContentValues;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+
+import com.example.jolvalre.beworker.database.BeworkerProvider;
+import com.example.jolvalre.beworker.database.DatabaseContract;
 
 public class InscriptionActivity extends AppCompatActivity {
 
@@ -27,7 +32,89 @@ public class InscriptionActivity extends AppCompatActivity {
     Boolean from_test = true;
     Animation animFadeIn,animFadeIn2;
 
+    public void viderChamps(){
+      Nom.setText("");
 
+      Prenom.setText("");
+
+      Age.setText("");
+
+      Ville.setText("");
+
+      Email.setText("");
+
+      Adresse.setText("");
+
+      Telephone.setText("");
+
+      Password.setText("");
+
+      Confirme_password.setText("");
+    }
+
+
+    public void addChercheur(){
+
+
+
+
+        Log.e("alllo", "on veux mettre une personne ");
+
+        String nom = this.Nom.getText().toString();
+
+        String prenom = this.Prenom.getText().toString();
+
+        String age = this.Age.getText().toString();
+
+        String ville = this.Ville.getText().toString();
+
+        String email = this.Email.getText().toString();
+
+        String adresse = this.Adresse.getText().toString();
+
+        String telephone = this.Telephone.getText().toString();
+
+        String password = this.Password.getText().toString();
+
+        String  genre = "masculin";
+
+        String domaine = "informatique";
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_EMAIL, email);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_NOM, nom);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_PRENOM, prenom);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_DOMAINE, domaine);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_MOT_DE_PASSE, password);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_TELEPHONE, telephone);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_GENRE, genre);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_STATUT, adresse);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_AGE, age);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_VILLE, ville);
+
+
+        BeworkerProvider rep = new  BeworkerProvider();
+
+        boolean bl = rep.onCreate();
+
+        Log.e("alllo", "la valeur de la creation du provider :  "+ bl);
+
+        this.getContentResolver().insert(DatabaseContract.Chercheur.CONTENT_URI,contentValues);
+
+
+        Log.e("alllo", "on viens de mettre une personne ");
+
+    }
 
 
     @Override
@@ -35,6 +122,9 @@ public class InscriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inscription);
 
+
+
+        Log.e("alllo", "on creer la vue inscription ");
 
         Nom = findViewById(R.id.nom);
         Prenom = findViewById(R.id.prenom);
@@ -47,6 +137,7 @@ public class InscriptionActivity extends AppCompatActivity {
         Confirme_password = findViewById(R.id.confirme_password);
         Sexe_feminin = findViewById(R.id.sexe_feminin);
         Sexe_masculin = findViewById(R.id.sexe_masculin);
+        radioGroup = findViewById(R.id.radio_group);
 
 
 
@@ -97,6 +188,9 @@ public class InscriptionActivity extends AppCompatActivity {
                 page2.setVisibility(View.VISIBLE);
                 page2.startAnimation(animFadeIn);
 
+
+                Log.e("alllo", "premier feuilletage ");
+
             }
         });
 
@@ -107,6 +201,8 @@ public class InscriptionActivity extends AppCompatActivity {
                 page2.setVisibility(View.GONE);
                 page3.setVisibility(View.VISIBLE);
                 page3.startAnimation(animFadeIn);
+
+                Log.e("alllo", "scond feuilletage ");
             }
         });
 
@@ -146,12 +242,15 @@ public class InscriptionActivity extends AppCompatActivity {
                 page3.setVisibility(View.GONE);
                 page4.setVisibility(View.VISIBLE);
                 page4.startAnimation(animFadeIn);
+
+                Log.e("alllo", "troisieme feuilletage ");
             }
         });
         suivant4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 suivant4.startAnimation(animFadeIn2);
+                Log.e("alllo", "dernier feuilletage ");
 
                 if (!Password.getText().toString().equals(Confirme_password.getText().toString())) {
                     Snackbar.make(ConstraintLayout, "Veillez resaisir le mot de passe", Snackbar.LENGTH_LONG)
@@ -195,6 +294,8 @@ public class InscriptionActivity extends AppCompatActivity {
                     } else {
                         Snackbar.make(ConstraintLayout, "Inscription effectue avec succes", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
+                        addChercheur();
+                        viderChamps();
                     }
                 }
             }
@@ -205,6 +306,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
 
     }
+
 
     public Boolean ControlForm(){
         Boolean  test_nom = false;
