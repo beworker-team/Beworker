@@ -18,14 +18,14 @@ import android.widget.RelativeLayout;
 
 public class InscriptionActivity extends AppCompatActivity {
 
-    ImageButton suivant,suivant2, precedant2, suivant3, precedant3,precedant4,suivant4;
-    LinearLayout page1, page2,page3,page4;
+    ImageButton suivant,suivant2, precedant2, suivant3, precedant3,precedant4,suivant4,fab,suivant5,precedant5;
+    LinearLayout page1, page2,page3,page4,page5;
     ConstraintLayout ConstraintLayout;
     EditText Nom,Prenom,Age,Ville,Email,Telephone,Adresse,Password,Confirme_password;
     RadioGroup radioGroup;
     RadioButton Sexe_masculin , Sexe_feminin;
     Boolean from_test = true;
-    Animation animFadeIn,animFadeIn2;
+    Animation animFadeIn,animFadeIn2,animFadeIn3;
 
 
 
@@ -54,6 +54,7 @@ public class InscriptionActivity extends AppCompatActivity {
         page2 = findViewById(R.id.page2);
         page3 = findViewById(R.id.page3);
         page4 = findViewById(R.id.page4);
+        page5 = findViewById(R.id.page5);
         suivant = findViewById(R.id.suivant);
         suivant2 = findViewById(R.id.suivant2);
         suivant3 = findViewById(R.id.suivant3);
@@ -61,15 +62,18 @@ public class InscriptionActivity extends AppCompatActivity {
         precedant2 = findViewById(R.id.precedant2);
         suivant4 = findViewById(R.id.suivant4);
         precedant4 = findViewById(R.id.precedant4);
+        suivant5 = findViewById(R.id.suivant5);
+        precedant5 = findViewById(R.id.precedant5);
         ConstraintLayout = findViewById(R.id.constraintlayout);
 
 
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fab.startAnimation(animFadeIn2);
                 Snackbar snackbar = Snackbar
                         .make(ConstraintLayout, "Message is deleted", Snackbar.LENGTH_LONG)
                         .setAction("UNDO", new View.OnClickListener() {
@@ -86,6 +90,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
         animFadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fabe_in);
         animFadeIn2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fabe_in2);
+        animFadeIn3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fabe_in3);
 
 
 
@@ -117,7 +122,7 @@ public class InscriptionActivity extends AppCompatActivity {
                 precedant2.startAnimation(animFadeIn2);
                 page2.setVisibility(View.GONE);
                 page1.setVisibility(View.VISIBLE);
-                page1.startAnimation(animFadeIn);
+                page1.startAnimation(animFadeIn3);
 
             }
         });
@@ -127,7 +132,7 @@ public class InscriptionActivity extends AppCompatActivity {
                 precedant3.startAnimation(animFadeIn2);
                 page3.setVisibility(View.GONE);
                 page2.setVisibility(View.VISIBLE);
-                page2.startAnimation(animFadeIn);
+                page2.startAnimation(animFadeIn3);
             }
         });
         precedant4.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +141,16 @@ public class InscriptionActivity extends AppCompatActivity {
                 precedant4.startAnimation(animFadeIn2);
                 page4.setVisibility(View.GONE);
                 page3.setVisibility(View.VISIBLE);
-                page3.startAnimation(animFadeIn);
+                page3.startAnimation(animFadeIn3);
+            }
+        });
+        precedant5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                precedant5.startAnimation(animFadeIn2);
+                page5.setVisibility(View.GONE);
+                page4.setVisibility(View.VISIBLE);
+                page4.startAnimation(animFadeIn3);
             }
         });
         suivant3.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +162,17 @@ public class InscriptionActivity extends AppCompatActivity {
                 page4.startAnimation(animFadeIn);
             }
         });
+
         suivant4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                suivant4.startAnimation(animFadeIn2);
+                page4.setVisibility(View.GONE);
+                page5.setVisibility(View.VISIBLE);
+                page5.startAnimation(animFadeIn);
+            }
+        });
+        suivant5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 suivant4.startAnimation(animFadeIn2);

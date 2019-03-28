@@ -21,7 +21,28 @@
     <string name="error_incorrect_password">Mot de passe incorrect</string>
     <string name="error_field_required">Ce champ est requis</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+        completions."</string>
+    <string name="telephone">Téléphone</string>
+    <string name="email">Email *</string>
+    <string name="inscription">Inscription</string>
+    <string name="votre_profil">VOTRE PROFIL</string>
+    <string name="nom">Nom *</string>
+    <string name="prenom">Prénom *</string>
+    <string name="completez_profil">COMPLETEZ PROFIL</string>
+    <string name="age">Age *</string>
+    <string name="ville">ville</string>
+    <string name="sexe">sexe</string>
+    <string name="masculin">Masculin</string>
+    <string name="feminin">Féminin</string>
+    <string name="vos_contact">VOS CONTACTS</string>
+    <string name="adresse">Adresse</string>
+    <string name="autres">AUTRES</string>
+    <string name="domaine">Domaine</string>
+    <string name="statut">Statut</string>
+    <string name="connectez_vous_ici">Connectez-vous ici</string>
+    <string name="securisez_vous">SECURISEZ VOUS</string>
+    <string name="password">Mot de Passe *</string>
+    <string name="confirmer_password">confirmer Mot de Passe *</string>
+    <string name="date_de_naissance">Date de naissance *</string>
     <string name="title_activity_home">HomeActivity</string>
 </resources>

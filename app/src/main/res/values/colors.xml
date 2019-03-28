@@ -9,5 +9,7 @@
     <color name="colorBlack">#000</color>
     <color name="colorProfil">#CACACA</color>
     <color name="colorBouton">#E92D1E</color>
-
+    <color name="colorOrange">#FF5722</color>
+    <color name="colorIncolor">#00FFFFFF</color>
+    <color name="colorRouge_vin">#B14343</color>
 </resources>
