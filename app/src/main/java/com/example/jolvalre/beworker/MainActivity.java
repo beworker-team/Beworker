@@ -59,8 +59,18 @@ public class MainActivity extends AppCompatActivity
         Intent inten = getIntent();
         String msg =  inten.getStringExtra(MainActivity.ONLINE_MODE);
 
-        if (msg!=null){
-            if (msg.equals("ON")){
+//        if (msg!=null){
+//            if (msg.equals("ON")){
+//                setContentView(R.layout.home_page_online);
+//                setOnlineMode();
+//            }else{
+//
+//            }
+//
+//        }
+        if(msg != null){
+            if(msg.equals("ON")){
+                System.out.println(">>>>>>>> OK!!!");
                 setContentView(R.layout.home_page_online);
                 setOnlineMode();
             }else{
@@ -68,7 +78,12 @@ public class MainActivity extends AppCompatActivity
                 setOffLineMode();
             }
 
+        }else{
+            setContentView(R.layout.home_page_offline);
+            setOffLineMode();
+
         }
+
 
 
 
