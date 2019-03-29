@@ -1,8 +1,13 @@
-package com.example.jolvalre.beworker;
+package com.example.jolvalre.beworker.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.example.jolvalre.beworker.fragment.HomeFragment;
+import com.example.jolvalre.beworker.fragment.NotificationFragment;
+import com.example.jolvalre.beworker.fragment.PostFragment;
+import com.example.jolvalre.beworker.fragment.ProfilFragment;
 
 /*
 * cette classe  peermet de gerer facilement les echanges entre

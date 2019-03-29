@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,8 +26,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
+import com.example.jolvalre.beworker.adapter.AdapterOffreCategorie;
+import com.example.jolvalre.beworker.adapter.PagerAdapter;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
+
+    public static String ONLINE_MODE = "ONLINE_MODE";
 
     /*
      * La variable viewpager fait référence au layout qui va contenir les differents
@@ -38,10 +48,30 @@ public class MainActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private Intent login, inscription;
 
+    /*
+    offlineRV le recycleView de la page d' acceuil non connecter il permettra d'afficher les offres*/
+    private RecyclerView offlineRV = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page_offline);
+
+        Intent inten = getIntent();
+        String msg =  inten.getStringExtra(MainActivity.ONLINE_MODE);
+
+        if (msg!=null){
+            if (msg.equals("ON")){
+                setContentView(R.layout.home_page_online);
+                setOnlineMode();
+            }else{
+                setContentView(R.layout.home_page_offline);
+                setOffLineMode();
+            }
+
+        }
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -54,31 +84,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         login = new Intent(MainActivity.this, LoginActivity.class);
 
         inscription = new Intent(MainActivity.this, InscriptionActivity.class);
-        // on recupere notre viewpager et notre tablayout
-        tabLayout = (TabLayout)findViewById(R.id.tab_layout_main);
-        viewPager = (ViewPager)findViewById(R.id.view_pager_main);
-
-        /*
-        //on declare notre pagerAdapter
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayoutOnPageChangeListener(tabLayout));
-
-        //on lie le tabLayout au viewPager
-        tabLayout.setupWithViewPager(viewPager);
-
-        //on recupere les icones des tabs
-        int[] icon={R.drawable.ic_home_black_24dp,//l'icone pour le home
-                R.drawable.ic_favorite_black_24dp,//l'icone pour les offres postuler
-                R.drawable.ic_notifications_black_24dp,//l'icone des notificatioins
-                R.drawable.ic_account_circle_black_24dp};//l'icone du profile
-        //on itere tous les tabs et on leur associe leurs icones
-        for(int i=0; i<icon.length;i++){
-            tabLayout.getTabAt(i).setIcon(icon[i]);
-        }*/
 
     }
 
@@ -146,5 +155,45 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setOffLineMode(){
+        offlineRV = (RecyclerView)findViewById(R.id.recycle_view_off_line_mode);
+        //la liste des categorie
+        ArrayList<OffreCategorie> dataOC = new ArrayList<OffreCategorie>();
+        //on initialise la liste
+        for(int i=0; i<4; i++){
+            dataOC.add(new OffreCategorie());
+        }
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        //RecyclerView rv =(RecyclerView) view.findViewById(R.id.recycle_view_fragment_home);
+        offlineRV.setLayoutManager(layoutManager);
+        //on ajoute a la liste son adapter
+        offlineRV.setAdapter(new AdapterOffreCategorie(LayoutInflater.from(this), dataOC));
+
+    }
+
+    private void setOnlineMode(){
+        // on recupere notre viewpager et notre tablayout
+        tabLayout = (TabLayout)findViewById(R.id.tab_layout_main);
+        viewPager = (ViewPager)findViewById(R.id.view_pager_main);
+
+        //on declare notre pagerAdapter
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayoutOnPageChangeListener(tabLayout));
+
+        //on lie le tabLayout au viewPager
+        tabLayout.setupWithViewPager(viewPager);
+
+        //on recupere les icones des tabs
+        int[] icon={R.drawable.ic_home_black_24dp,//l'icone pour le home
+                R.drawable.ic_favorite_black_24dp,//l'icone pour les offres postuler
+                R.drawable.ic_notifications_black_24dp,//l'icone des notificatioins
+                R.drawable.ic_account_circle_black_24dp};//l'icone du profile
+        //on itere tous les tabs et on leur associe leurs icones
+        for(int i=0; i<icon.length;i++){
+            tabLayout.getTabAt(i).setIcon(icon[i]);
+        }
     }
 }

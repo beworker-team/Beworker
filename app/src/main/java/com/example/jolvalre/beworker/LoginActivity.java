@@ -100,7 +100,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+
+//                attemptLogin();
+                goInOnlineMode();
             }
         });
 
@@ -359,6 +361,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+//    fonction passer en mode connecter
+    private void goInOnlineMode(){
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra(MainActivity.ONLINE_MODE, "ON");
+        startActivity(intent);
+        this.finish();
     }
 }
 
