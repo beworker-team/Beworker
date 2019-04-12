@@ -81,6 +81,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private ImageView return_button;
     private Intent homePage;
+    private Intent login, inscription;
+    private TextView aller_inscription;
 
     private  RestTemplate restTemplate = null;
 
@@ -99,6 +101,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View v) {
                 startActivity(homePage);
+            }
+        });
+
+        inscription = new Intent(LoginActivity.this, InscriptionActivity.class);
+
+        aller_inscription = findViewById(R.id.aller_inscription);
+        aller_inscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(inscription);
             }
         });
 
@@ -285,6 +297,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Show primary email addresses first. Note that there won't be
                 // a primary email address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+
     }
 
     @Override

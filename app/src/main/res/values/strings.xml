@@ -43,6 +43,6 @@
     <string name="securisez_vous">SECURISEZ VOUS</string>
     <string name="password">Mot de Passe *</string>
     <string name="confirmer_password">confirmer Mot de Passe *</string>
-    <string name="date_de_naissance">Date de naissance *</string>
+    <string name="date_de_naissance">Age *</string>
     <string name="title_activity_home">HomeActivity</string>
 </resources>

@@ -24,7 +24,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+<<<<<<< HEAD
 import android.widget.Toast;
+=======
+import android.widget.TextView;
+>>>>>>> 58647800ac18d58a8c585d982017560538905554
 import android.widget.ViewFlipper;
 
 import com.example.jolvalre.beworker.adapter.AdapterOffreCategorie;
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Intent login, inscription;
+    private TextView aller_inscription;
 
     /**
      * cette variable permet de savoir si le delai d'appui sur la touche retour est inferieur a 2s
@@ -94,9 +99,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        login = new Intent(MainActivity.this, LoginActivity.class);
 
         inscription = new Intent(MainActivity.this, InscriptionActivity.class);
+        login = new Intent(MainActivity.this, LoginActivity.class);
+
+
 
     }
 

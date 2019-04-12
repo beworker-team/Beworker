@@ -35,6 +35,8 @@ public class DatabaseContract {
 
         public static final String COLUMN_AGE = "age";
 
+       // public static final String COLUMN_ADRESSE = "adresse";
+
         public static final String COLUMN_GENRE = "genre";
 
         public static final String COLUMN_STATUT = "statut";

@@ -1,11 +1,20 @@
 package com.example.jolvalre.beworker;
 
+<<<<<<< HEAD
 import android.os.AsyncTask;
+=======
+import android.content.ContentValues;
+import android.content.Intent;
+>>>>>>> 58647800ac18d58a8c585d982017560538905554
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.util.Base64;
+=======
+import android.util.Log;
+>>>>>>> 58647800ac18d58a8c585d982017560538905554
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,12 +34,14 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.jolvalre.beworker.entities.Chercheur;
 
+import com.example.jolvalre.beworker.database.DatabaseContract;
+
 public class InscriptionActivity extends AppCompatActivity {
 
     ImageButton suivant,suivant2, precedant2, suivant3, precedant3,precedant4,suivant4,fab,suivant5,precedant5;
     LinearLayout page1, page2,page3,page4,page5;
     ConstraintLayout ConstraintLayout;
-    EditText Nom,Prenom,Age,Ville,Email,Telephone,Adresse,Password,Confirme_password;
+    EditText Nom,Prenom,Age,Ville,Email,Telephone,Adresse,Password,Confirme_password,Domaine, Statut;
     RadioGroup radioGroup;
     RadioButton Sexe_masculin , Sexe_feminin;
     Boolean from_test = true;
@@ -70,6 +81,78 @@ public class InscriptionActivity extends AppCompatActivity {
 
 
 
+    public void addPersonne(){
+
+        ContentValues contentValues = new ContentValues();
+
+        Log.e("alllo", "on viens de mettre une personne ");
+
+        String sexe = null;
+        // = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
+        if (radioGroup.getCheckedRadioButtonId() == R.id.sexe_feminin){
+            sexe = "feminin";
+
+        }else if (radioGroup.getCheckedRadioButtonId() == R.id.sexe_masculin){
+            sexe = "masculin";
+        }
+
+        Log.e("la nature du sexe", sexe);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_EMAIL, Email.getText().toString());
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_NOM, Nom.getText().toString());
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_PRENOM, Prenom.getText().toString());
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_MOT_DE_PASSE, Password.getText().toString());
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_DOMAINE, Domaine.getText().toString());
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_AGE, Age.getText().toString());
+
+        Log.e("alllo", "on viens de mettre une personne ");
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_GENRE, sexe);
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_DOMAINE, Domaine.getText().toString());
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_TELEPHONE, Telephone.getText().toString());
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_VILLE, Ville.getText().toString());
+
+        contentValues.put(DatabaseContract.Chercheur.COLUMN_STATUT, Statut.getText().toString());
+
+        //contentValues.put(DatabaseContract.Chercheur.COLUMN_ADRESSE, Adresse.getText().toString());
+
+        this.getContentResolver().insert(DatabaseContract.Chercheur.CONTENT_URI,contentValues);
+
+
+        Log.e("alllo", "on viens de mettre une personne ");
+
+
+        //on vide les champs
+        Statut.setText("");
+        Ville.setText("");
+        Telephone.setText("");
+        Domaine.setText("");
+        Password.setText("");
+        Nom.setText("");
+        Prenom.setText("");
+        Email.setText("");
+        Adresse.setText("");
+        Age.setText("");
+        Confirme_password.setText("");
+
+
+    }
+
+    //    fonction passer en mode connecter
+    private void goInOnlineMode(){
+        Intent intent = new Intent(InscriptionActivity.this, MainActivity.class);
+        intent.putExtra(MainActivity.ONLINE_MODE, "ON");
+        startActivity(intent);
+        this.finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +171,10 @@ public class InscriptionActivity extends AppCompatActivity {
         Confirme_password = findViewById(R.id.confirme_password);
         Sexe_feminin = findViewById(R.id.sexe_feminin);
         Sexe_masculin = findViewById(R.id.sexe_masculin);
+        Domaine=findViewById(R.id.domaine);
+        Statut=findViewById(R.id.statut);
+        radioGroup = findViewById(R.id.radio_group);
+
 
 
 
@@ -258,11 +345,16 @@ public class InscriptionActivity extends AppCompatActivity {
 
                         snackbar.show();
                     } else {
+<<<<<<< HEAD
                         final String uri="http://";
                         System.out.println(uri);
                         new     RESTTask().execute(uri);
+=======
+                        addPersonne();
+>>>>>>> 58647800ac18d58a8c585d982017560538905554
                         Snackbar.make(ConstraintLayout, "Inscription effectue avec succes", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
+                        goInOnlineMode();
                     }
                 }
             }
