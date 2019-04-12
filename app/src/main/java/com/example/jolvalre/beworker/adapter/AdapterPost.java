@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.jolvalre.beworker.Offre;
+import com.example.jolvalre.beworker.entities.Offre;
 import com.example.jolvalre.beworker.R;
 
 import java.util.ArrayList;

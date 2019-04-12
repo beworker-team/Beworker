@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.jolvalre.beworker.adapter.AdapterOffreCategorie;
@@ -48,6 +49,11 @@ public class MainActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private Intent login, inscription;
 
+    /**
+     * cette variable permet de savoir si le delai d'appui sur la touche retour est inferieur a 2s
+     * */
+    private long last_press= -1;
+
     /*
     offlineRV le recycleView de la page d' acceuil non connecter il permettra d'afficher les offres*/
     private RecyclerView offlineRV = null;
@@ -59,15 +65,6 @@ public class MainActivity extends AppCompatActivity
         Intent inten = getIntent();
         String msg =  inten.getStringExtra(MainActivity.ONLINE_MODE);
 
-//        if (msg!=null){
-//            if (msg.equals("ON")){
-//                setContentView(R.layout.home_page_online);
-//                setOnlineMode();
-//            }else{
-//
-//            }
-//
-//        }
         if(msg != null){
             if(msg.equals("ON")){
                 System.out.println(">>>>>>>> OK!!!");
@@ -83,9 +80,6 @@ public class MainActivity extends AppCompatActivity
             setOffLineMode();
 
         }
-
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,7 +106,13 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            long time = System.currentTimeMillis();
+            if (last_press !=-1 && (time - last_press)<2000){
+                super.onBackPressed();
+            }else{
+                last_press =time;
+                Toast.makeText(getApplicationContext(), "Appuyer de nouveau pour quitter",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -163,8 +163,10 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_log_in) {
             startActivity(login);
+            this.finish();
         }else if (id == R.id.nav_sign_in){
             startActivity(inscription);
+            this.finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jolvalre.beworker.Offre;
+import com.example.jolvalre.beworker.entities.Offre;
 import com.example.jolvalre.beworker.R;
 import com.example.jolvalre.beworker.viewholder.OffreViewH;
 

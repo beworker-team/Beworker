@@ -9,11 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import com.example.jolvalre.beworker.adapter.AdapterOffreH;
-import com.example.jolvalre.beworker.adapter.AdapterPost;
-import com.example.jolvalre.beworker.Offre;
+import com.example.jolvalre.beworker.entities.Offre;
 import com.example.jolvalre.beworker.R;
 
 import java.util.ArrayList;

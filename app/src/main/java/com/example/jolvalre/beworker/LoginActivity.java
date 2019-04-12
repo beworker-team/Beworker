@@ -31,6 +31,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jolvalre.beworker.entities.Chercheur;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.BufferedReader;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +68,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private UserLoginTask mAuthTask = null;
 
+    /**
+     * TODO: complete l'qdresse ip de l'url
+     * l'url qui sera utilser pour se connecter q l'api
+     * */
+    public static final String BASE_URL = "http://182.143.42.10:8081/chercheur/authentification/";
+
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -65,6 +81,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private ImageView return_button;
     private Intent homePage;
+
+    private  RestTemplate restTemplate = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +119,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
 
-//                attemptLogin();
-                goInOnlineMode();
+                attemptLogin();
+//                goInOnlineMode();
             }
         });
 
@@ -310,7 +328,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, Chercheur> {
 
         private final String mEmail;
         private final String mPassword;
@@ -321,45 +339,68 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+        protected Chercheur doInBackground(Void... params) {
 
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
+//TODO:Terminer les instruction de connexion
+                /*try {
+                    String url = BASE_URL ;
+                    return getRestemplete().getForObject(url, Chercheur.class, mEmail);
+                }catch (RestClientException e){
+                    return null;
+                }*/
+//                goInOnlineMode();
+                return null;
             } catch (InterruptedException e) {
-                return false;
+                return null;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
+            /*for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
-            }
-
-            // TODO: register the new account here.
-            return true;
+            }*/
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final Chercheur chercheur) {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
-                finish();
+            goInOnlineMode();
+            //TODO: decommenter plustard
+            /*if (chercheur!=null) {
+                goInOnlineMode();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
-            }
+            }*/
         }
 
         @Override
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+
+        private RestTemplate getRestemplete(){
+            if (restTemplate==null){
+                restTemplate = new RestTemplate();
+
+                MappingJackson2HttpMessageConverter jsonConverted = new MappingJackson2HttpMessageConverter();
+                List<MediaType> supportedMediaTypes = new ArrayList<MediaType>();
+                supportedMediaTypes.add(MediaType.APPLICATION_JSON);
+                jsonConverted.setSupportedMediaTypes(supportedMediaTypes);
+
+                List<HttpMessageConverter<?>> listhttpMessageConverters = restTemplate.getMessageConverters();
+                listhttpMessageConverters.add(jsonConverted);
+                restTemplate.setMessageConverters(listhttpMessageConverters);
+            }
+            return restTemplate;
         }
     }
 
@@ -370,5 +411,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(intent);
         this.finish();
     }
+
+
 }
 

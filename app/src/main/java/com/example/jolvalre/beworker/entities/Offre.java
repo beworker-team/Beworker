@@ -1,4 +1,4 @@
-package com.example.jolvalre.beworker;
+package com.example.jolvalre.beworker.entities;
 
 public class Offre {
 
