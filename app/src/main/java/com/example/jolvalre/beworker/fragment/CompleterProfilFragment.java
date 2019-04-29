@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 
 import com.example.jolvalre.beworker.R;
 
+import static com.example.jolvalre.beworker.InscriptionActivity.chercheur;
 import static com.example.jolvalre.beworker.InscriptionActivity.viewPager;
 
 public class CompleterProfilFragment extends Fragment{
@@ -50,6 +51,8 @@ public class CompleterProfilFragment extends Fragment{
                 viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
             }
         });
+        chercheur.setMot_de_passe(age.toString());
+        chercheur.setVille(ville.toString());
         return view;
     }
 }

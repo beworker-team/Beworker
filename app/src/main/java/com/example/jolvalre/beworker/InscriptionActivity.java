@@ -35,6 +35,7 @@ import com.example.jolvalre.beworker.database.DatabaseContract;
 
 public class InscriptionActivity extends AppCompatActivity {
    public static ViewPager viewPager;
+   public static Chercheur chercheur;
 
     ImageButton suivant,suivant2, precedant2, suivant3, precedant3,precedant4,suivant4,fab,suivant5,precedant5;
     LinearLayout page1, page2,page3,page4,page5;

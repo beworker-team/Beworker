@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 
 import com.example.jolvalre.beworker.R;
 
+import static com.example.jolvalre.beworker.InscriptionActivity.chercheur;
 import static com.example.jolvalre.beworker.InscriptionActivity.viewPager;
 
 public class SecurityFragment extends Fragment {
@@ -80,6 +81,7 @@ public class SecurityFragment extends Fragment {
 
 
         });
+        chercheur.setPassword(password.toString());
         return view;
     }
 }

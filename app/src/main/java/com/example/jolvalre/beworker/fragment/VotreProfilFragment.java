@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 
 import com.example.jolvalre.beworker.R;
 
+import static com.example.jolvalre.beworker.InscriptionActivity.chercheur;
 import static com.example.jolvalre.beworker.InscriptionActivity.viewPager;
 
 
@@ -47,6 +48,8 @@ public class VotreProfilFragment extends Fragment {
                 viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
             }
         });
+        chercheur.setNom(nom.toString());
+        chercheur.setPrenom(nom.toString());
         return view;
     }
 }

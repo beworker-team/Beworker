@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 
 import com.example.jolvalre.beworker.R;
 
+import static com.example.jolvalre.beworker.InscriptionActivity.chercheur;
 import static com.example.jolvalre.beworker.InscriptionActivity.viewPager;
 
 public class AutreFragment extends Fragment {
@@ -52,6 +53,8 @@ public class AutreFragment extends Fragment {
                 viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
             }
         });
+        chercheur.setDomaine(domaine.toString());
+        chercheur.setStatut(statut.toString());
         return view;
     }
 

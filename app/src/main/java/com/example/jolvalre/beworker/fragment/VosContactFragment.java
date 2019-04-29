@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 
 import com.example.jolvalre.beworker.R;
 
+import static com.example.jolvalre.beworker.InscriptionActivity.chercheur;
 import static com.example.jolvalre.beworker.InscriptionActivity.viewPager;
 
 public class VosContactFragment extends Fragment {
@@ -53,6 +54,9 @@ public class VosContactFragment extends Fragment {
                 viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
             }
         });
+        chercheur.setEmail(email.toString());
+        chercheur.setTelephone(telephone.toString());
+        chercheur.setAdresse(adresse.toString());
         return view;
     }
 }
