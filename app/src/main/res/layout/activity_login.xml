@@ -30,6 +30,11 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"/>
         </android.support.v7.widget.Toolbar>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha=".4"
+            android:background="@color/colorBlack"/>
 
     </android.support.design.widget.AppBarLayout>
 

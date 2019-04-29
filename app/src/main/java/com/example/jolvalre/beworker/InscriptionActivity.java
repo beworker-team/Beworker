@@ -1,20 +1,16 @@
 package com.example.jolvalre.beworker;
 
-<<<<<<< HEAD
 import android.os.AsyncTask;
-=======
 import android.content.ContentValues;
 import android.content.Intent;
->>>>>>> 58647800ac18d58a8c585d982017560538905554
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.util.Base64;
-=======
 import android.util.Log;
->>>>>>> 58647800ac18d58a8c585d982017560538905554
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -32,11 +28,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.jolvalre.beworker.adapter.PagerAdapter2;
 import com.example.jolvalre.beworker.entities.Chercheur;
 
 import com.example.jolvalre.beworker.database.DatabaseContract;
 
 public class InscriptionActivity extends AppCompatActivity {
+   public static ViewPager viewPager;
 
     ImageButton suivant,suivant2, precedant2, suivant3, precedant3,precedant4,suivant4,fab,suivant5,precedant5;
     LinearLayout page1, page2,page3,page4,page5;
@@ -194,10 +192,15 @@ public class InscriptionActivity extends AppCompatActivity {
         precedant5 = findViewById(R.id.precedant5);
         ConstraintLayout = findViewById(R.id.constraintlayout);
 
+        viewPager = (ViewPager) findViewById(R.id.view_pager_inscription);
+        PagerAdapter pagerAdapter2 = new PagerAdapter2(getSupportFragmentManager());
+        if(viewPager != null)
+        viewPager.setAdapter(pagerAdapter2);
 
 
 
-        fab = findViewById(R.id.fab);
+
+        /*fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -214,7 +217,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
                 snackbar.show();
             }
-        });
+        });*/
 
         animFadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fabe_in);
         animFadeIn2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fabe_in2);
@@ -222,6 +225,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
 
 
+/*
         suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -300,7 +304,8 @@ public class InscriptionActivity extends AppCompatActivity {
                 page5.startAnimation(animFadeIn);
             }
         });
-        suivant5.setOnClickListener(new View.OnClickListener() {
+*/
+     /*   suivant5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 suivant4.startAnimation(animFadeIn2);
@@ -345,13 +350,10 @@ public class InscriptionActivity extends AppCompatActivity {
 
                         snackbar.show();
                     } else {
-<<<<<<< HEAD
                         final String uri="http://";
                         System.out.println(uri);
                         new     RESTTask().execute(uri);
-=======
                         addPersonne();
->>>>>>> 58647800ac18d58a8c585d982017560538905554
                         Snackbar.make(ConstraintLayout, "Inscription effectue avec succes", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                         goInOnlineMode();
@@ -360,7 +362,7 @@ public class InscriptionActivity extends AppCompatActivity {
             }
 
         });
-
+*/
 
 
 

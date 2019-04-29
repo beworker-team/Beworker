@@ -24,11 +24,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-<<<<<<< HEAD
 import android.widget.Toast;
-=======
 import android.widget.TextView;
->>>>>>> 58647800ac18d58a8c585d982017560538905554
 import android.widget.ViewFlipper;
 
 import com.example.jolvalre.beworker.adapter.AdapterOffreCategorie;
