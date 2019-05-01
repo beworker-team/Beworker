@@ -11,7 +11,8 @@ public class RetrofitInstance {
      * l'adresse url de base de l'api
      * TODO: Remplacer cette adresse par l'adresse effective une deploye
      * */
-    private static String BASE_URL = "http://192.168.43.216:8080";
+//    private static String BASE_URL = "http://192.168.43.216:8081";
+    private static String BASE_URL = "http://192.168.43.115:8081";
 
     /**
      * Retourne une instance retrofit a base de BASE_URL

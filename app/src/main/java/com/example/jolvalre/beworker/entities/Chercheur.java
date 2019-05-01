@@ -12,17 +12,20 @@ public class Chercheur {
     @SerializedName("prenom")
     private String prenom;
     @SerializedName("mot_de_passe")
-    private String mot_de_passe;
+    private String password;
+
     @SerializedName("domaine")
     private String domaine;
-    @SerializedName("date_de_naissance")
-    private Date date_de_naissance;
+//    @SerializedName("date_de_naissance")
+//    private Date date_de_naissance;
+
     @SerializedName("genre")
     private String genre;
     @SerializedName("statut")
     private String statut;
     @SerializedName("telephone")
     private String telephone;
+
     @SerializedName("ville")
     private String ville;
     @SerializedName("email")
@@ -30,19 +33,29 @@ public class Chercheur {
     @SerializedName("etat")
     private Boolean etat;
 
-    public Chercheur(Long id_chercheur, String nom, String prenom, String mot_de_passe, String domaine, Date date_de_naissance, String genre, String statut, String telephone, String ville, String email, Boolean etat) {
-        this.id_chercheur = id_chercheur;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.mot_de_passe = mot_de_passe;
-        this.domaine = domaine;
-        this.date_de_naissance = date_de_naissance;
-        this.genre = genre;
-        this.statut = statut;
-        this.telephone = telephone;
-        this.ville = ville;
-        this.email = email;
-        this.etat = etat;
+//    @SerializedName("adresse")
+//    private String adresse;
+    @SerializedName("date_de_naissance")
+    private String age;
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+//    public String getAdresse() {
+//        return adresse;
+//    }
+//
+//    public String getPassword() {
+//        return password;
+//    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId_chercheur() {
@@ -69,14 +82,6 @@ public class Chercheur {
         this.prenom = prenom;
     }
 
-    public String getMot_de_passe() {
-        return mot_de_passe;
-    }
-
-    public void setMot_de_passe(String mot_de_passe) {
-        this.mot_de_passe = mot_de_passe;
-    }
-
     public String getDomaine() {
         return domaine;
     }
@@ -85,13 +90,13 @@ public class Chercheur {
         this.domaine = domaine;
     }
 
-    public Date getDate_de_naissance() {
-        return date_de_naissance;
-    }
-
-    public void setDate_de_naissance(Date date_de_naissance) {
-        this.date_de_naissance = date_de_naissance;
-    }
+//    public Date getDate_de_naissance() {
+//        return date_de_naissance;
+//    }
+//
+//    public void setDate_de_naissance(Date date_de_naissance) {
+//        this.date_de_naissance = date_de_naissance;
+//    }
 
     public String getGenre() {
         return genre;

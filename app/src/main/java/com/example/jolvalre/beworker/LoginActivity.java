@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    //private UserLoginTask mAuthTask = null;
 
     /**
      * TODO: complete l'qdresse ip de l'url
@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         homePage = new Intent(LoginActivity.this, MainActivity.class);
 
         return_button = findViewById(R.id.return_button);
-        return_button.setOnClickListener(new OnClickListener(){
+        return_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 startActivity(homePage);
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         inscription = new Intent(LoginActivity.this, InscriptionActivity.class);
 
         aller_inscription = findViewById(R.id.aller_inscription);
-        aller_inscription.setOnClickListener(new OnClickListener() {
+        aller_inscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(inscription);
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new OnClickListener() {
+                    .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -182,9 +182,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+//
 
         // Reset errors.
         mEmailView.setError(null);
@@ -223,8 +221,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
         }
     }
 
@@ -329,87 +325,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Chercheur> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Chercheur doInBackground(Void... params) {
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-//TODO:Terminer les instruction de connexion
-                /*try {
-                    String url = BASE_URL ;
-                    return getRestemplete().getForObject(url, Chercheur.class, mEmail);
-                }catch (RestClientException e){
-                    return null;
-                }*/
-//                goInOnlineMode();
-                return null;
-            } catch (InterruptedException e) {
-                return null;
-            }
-
-            /*for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }*/
-        }
-
-        @Override
-        protected void onPostExecute(final Chercheur chercheur) {
-            mAuthTask = null;
-            showProgress(false);
-
-            goInOnlineMode();
-            //TODO: decommenter plustard
-            /*if (chercheur!=null) {
-                goInOnlineMode();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }*/
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-
-//        private RestTemplate getRestemplete(){
-//            if (restTemplate==null){
-//                restTemplate = new RestTemplate();
-//
-//                MappingJackson2HttpMessageConverter jsonConverted = new MappingJackson2HttpMessageConverter();
-//                List<MediaType> supportedMediaTypes = new ArrayList<MediaType>();
-//                supportedMediaTypes.add(MediaType.APPLICATION_JSON);
-//                jsonConverted.setSupportedMediaTypes(supportedMediaTypes);
-//
-//                List<HttpMessageConverter<?>> listhttpMessageConverters = restTemplate.getMessageConverters();
-//                listhttpMessageConverters.add(jsonConverted);
-//                restTemplate.setMessageConverters(listhttpMessageConverters);
-//            }
-//            return restTemplate;
-//        }
-    }
-
-//    fonction passer en mode connecter
+    //    fonction passer en mode connecter
     private void goInOnlineMode(){
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra(MainActivity.ONLINE_MODE, "ON");

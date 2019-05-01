@@ -50,5 +50,4 @@ public class AdapterOffreCategorie extends RecyclerView.Adapter<CatOffreViewHold
         return list.size();
     }
 
-
 }
