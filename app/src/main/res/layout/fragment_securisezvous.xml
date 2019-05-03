@@ -10,37 +10,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
-        android:paddingLeft="16dp">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:src="@drawable/ic_arrow_back_black_24dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="25dp"
-            android:text="@string/inscription"
-            android:textColor="@color/colorWhite"
-            android:textSize="21dp" />
-
-    </android.support.v7.widget.Toolbar>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha=".4"
-            android:background="@color/colorBlack">
-
-    </LinearLayout>
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

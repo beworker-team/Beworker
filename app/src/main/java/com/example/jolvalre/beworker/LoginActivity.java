@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,9 +33,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jolvalre.beworker.entities.Chercheur;
+import com.example.jolvalre.beworker.entities.Offre;
+import com.example.jolvalre.beworker.network.RetrofitInstance;
+import com.example.jolvalre.beworker.service.BeworkerService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -60,12 +68,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     //private UserLoginTask mAuthTask = null;
 
-    /**
-     * TODO: complete l'qdresse ip de l'url
-     * l'url qui sera utilser pour se connecter q l'api
-     * */
-    public static final String BASE_URL = "http://182.143.42.10:8081/chercheur/authentification/";
-
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -73,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private ImageView return_button;
     private Intent homePage;
-    private Intent login, inscription;
+    private Intent inscription;
     private TextView aller_inscription;
 
 //    private  RestTemplate restTemplate = null;
@@ -124,7 +126,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onClick(View view) {
 
                 attemptLogin();
-//                goInOnlineMode();
+                goInOnlineMode();
             }
         });
 
@@ -325,12 +327,51 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
+
+    //TODO: remettre le service de connexion actif
     //    fonction passer en mode connecter
     private void goInOnlineMode(){
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.putExtra(MainActivity.ONLINE_MODE, "ON");
-        startActivity(intent);
-        this.finish();
+
+        BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        Call<Offre> call = service.getAllOffre();
+        call.enqueue(new Callback<Offre>() {
+            @Override
+            public void onResponse(Call<Offre> call, Response<Offre> response) {
+                System.out.print("BODY_FAKE_0"+ response);
+                System.out.print("BODY_FAKE_0"+ call.request());
+            }
+
+            @Override
+            public void onFailure(Call<Offre> call, Throwable t) {
+                System.out.print("BODY_FAKE_0"+ call.request());
+            }
+        });
+//        Call<Chercheur> call = service.autthentifiaction(email, password);
+//        call.enqueue(new Callback<Chercheur>() {
+//            @Override
+//            public void onResponse(Call<Chercheur> call, Response<Chercheur> response) {
+//                Log.i("CONNEXION_8", response.toString());
+//                if(response.body()!=null){
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    intent.putExtra(MainActivity.ONLINE_MODE, "ON");
+//                    startActivity(intent);
+//                    LoginActivity.this.finish();
+//                    Log.i("CONNEXION_8_BODY", response.toString());
+//                }else{
+//                    showProgress(false);
+//                    System.out.println(" BODY_CONNEXION "+response.body());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Chercheur> call, Throwable t) {
+//                showProgress(false);
+//                Log.i("CONNEXION", call.request().toString());
+//            }
+//        });
+
     }
 
     @Override
@@ -340,5 +381,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(intent);
         this.finish();
     }
+
 }
 
