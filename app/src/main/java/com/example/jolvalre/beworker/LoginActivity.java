@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jolvalre.beworker.entities.Chercheur;
-import com.example.jolvalre.beworker.entities.Offre;
+import com.example.jolvalre.beworker.entities.ChercheurV2;
 import com.example.jolvalre.beworker.network.RetrofitInstance;
 import com.example.jolvalre.beworker.service.BeworkerService;
 
@@ -45,6 +47,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static com.example.jolvalre.beworker.MainActivity.MY_PREFS;
 
 /**
  * A login screen that offers login via email/password.
@@ -312,7 +315,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
         mEmailView.setAdapter(adapter);
     }
 
@@ -335,19 +337,58 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        Call<Offre> call = service.getAllOffre();
-        call.enqueue(new Callback<Offre>() {
+        Call<ChercheurV2> call = service.authentifiaction(email,password);
+        call.enqueue(new Callback<ChercheurV2>() {
             @Override
-            public void onResponse(Call<Offre> call, Response<Offre> response) {
-                System.out.print("BODY_FAKE_0"+ response);
-                System.out.print("BODY_FAKE_0"+ call.request());
+            public void onResponse(Call<ChercheurV2> call, Response<ChercheurV2> response) {
+                    if (response.code() == 200){
+
+                        //on sauvegade les donnees de l'utilisateur
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        ChercheurV2 chercheur = response.body();
+
+                        editor.putString(Chercheur.ID, chercheur.getEmail() );
+                        editor.putString(Chercheur.NOM, chercheur.getNom() );
+
+                        editor.putString(Chercheur.PRENOM, chercheur.getPrenom() );
+                        editor.putString(Chercheur.EMAIL, chercheur.getEmail() );
+
+                        editor.putString(Chercheur.PASSWORD, chercheur.getMot_de_passe() );
+
+                        editor.putString(Chercheur.GENRE, chercheur.getGenre() );
+                        editor.putString(Chercheur.BIRTH_DAY, chercheur.getDate_de_naissance() );
+
+                        editor.putString(Chercheur.DOMAINE, chercheur.getDomaine() );
+                        editor.putString(Chercheur.STATUT, chercheur.getStatut() );
+
+                        editor.putString(Chercheur.VILLE, chercheur.getVille() );
+                        editor.putString(Chercheur.TELEPHONE, chercheur.getTelephone() );
+
+                        editor.apply();
+
+                        //on fait disparaitre le dialogue box et on passe a la page d'accueil en ONLINE_MODE
+                        showProgress(false);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra(MainActivity.ONLINE_MODE, "ON");
+                        startActivity(intent);
+                        LoginActivity.this.finish();
+                    }
+                    else {
+                        System.out.println("BODY_FAKE_0" + response);
+                        System.out.println("BODY_FAKE_0" + call.request());
+                        System.out.println("igor nde ");
+                        showProgress(false);
+                    }
             }
 
             @Override
-            public void onFailure(Call<Offre> call, Throwable t) {
-                System.out.print("BODY_FAKE_0"+ call.request());
+            public void onFailure(Call<ChercheurV2> call, Throwable t) {
+                System.out.println("BODY_FAKE_0"+ call.request());
+                System.out.println("igor nd ");
             }
         });
+
 //        Call<Chercheur> call = service.autthentifiaction(email, password);
 //        call.enqueue(new Callback<Chercheur>() {
 //            @Override

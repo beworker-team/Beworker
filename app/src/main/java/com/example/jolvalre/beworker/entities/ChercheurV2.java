@@ -15,7 +15,7 @@ public class ChercheurV2 {
     @SerializedName("domaine")
     private String domaine;
     @SerializedName("date_de_naissance")
-    private Date date_de_naissance;
+    private String date_de_naissance;
     @SerializedName("genre")
     private String genre;
     @SerializedName("statut")
@@ -32,7 +32,7 @@ public class ChercheurV2 {
     public ChercheurV2() {
     }
 
-    public ChercheurV2(String nom, String prenom, String mot_de_passe, String domaine, Date date_de_naissance,
+    public ChercheurV2(String nom, String prenom, String mot_de_passe, String domaine, String date_de_naissance,
                        String genre, String statut, String telephone, String adresse, String ville, String email) {
         this.nom = nom;
         this.prenom = prenom;
@@ -128,11 +128,28 @@ public class ChercheurV2 {
         this.adresse = adresse;
     }
 
-    public Date getDate_de_naissance() {
+    public String getDate_de_naissance() {
         return date_de_naissance;
     }
 
-    public void setDate_de_naissance(Date date_de_naissance) {
+    public void setDate_de_naissance(String date_de_naissance) {
         this.date_de_naissance = date_de_naissance;
+    }
+
+    @Override
+    public String toString() {
+        return "ChercheurV2{" +
+                "nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", mot_de_passe='" + mot_de_passe + '\'' +
+                ", domaine='" + domaine + '\'' +
+                ", date_de_naissance='" + date_de_naissance + '\'' +
+                ", genre='" + genre + '\'' +
+                ", statut='" + statut + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", ville='" + ville + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

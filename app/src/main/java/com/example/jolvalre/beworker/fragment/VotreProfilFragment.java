@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,16 +41,30 @@ public class VotreProfilFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_votreprofil, container, false);
         //autre chose
         nom = view.findViewById(R.id.nom);
-        prenom = view.findViewById(R.id.ville);
+        prenom = view.findViewById(R.id.prenom);
         suivant1 = view.findViewById(R.id.suivant);
         suivant1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                if (retriveDate()) viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
             }
         });
-        chercheur.setNom(nom.toString());
-        chercheur.setPrenom(nom.toString());
         return view;
     }
+
+    public boolean retriveDate(){
+        if (TextUtils.isEmpty(nom.getText())){
+            nom.setError( getString(R.string.obligation_message) );
+            return false;
+        }
+        chercheur.setNom(nom.getText().toString());
+        if (TextUtils.isEmpty(prenom.getText())){
+            prenom.setError( getString(R.string.obligation_message) );
+            return false;
+        }
+        chercheur.setNom(nom.getText().toString());
+        chercheur.setPrenom(prenom.getText().toString());
+        return true;
+    }
+
 }

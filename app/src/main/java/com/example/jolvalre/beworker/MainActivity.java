@@ -1,11 +1,17 @@
 package com.example.jolvalre.beworker;
 
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,18 +26,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
 import android.widget.TextView;
 import com.example.jolvalre.beworker.adapter.AdapterOffreCategorie;
 import com.example.jolvalre.beworker.adapter.PagerAdapter;
+import com.example.jolvalre.beworker.entities.Chercheur;
+import com.example.jolvalre.beworker.entities.ChercheurV2;
 import com.example.jolvalre.beworker.entities.OffreCategorie;
+import com.example.jolvalre.beworker.network.RetrofitInstance;
+import com.example.jolvalre.beworker.service.BeworkerService;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     public static String ONLINE_MODE = "ONLINE_MODE";
+
+    public static String DEFAULT_ID = "-1";
+
+    public static String MY_PREFS = "preferences";
 
     public static  Context MY_CONTEXT;
 
@@ -46,13 +68,13 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Intent login, inscription;
-    private TextView aller_inscription;
 
     /**
      * cette variable permet de savoir si le delai d'appui sur la touche retour est inferieur a 2s
      * */
     private long last_press= -1;
 
+    public static String id = "";
     /*
     offlineRV le recycleView de la page d' acceuil non connecter il permettra d'afficher les offres*/
     private RecyclerView offlineRV = null;
@@ -67,15 +89,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //on specifie le context de l'activite
         MainActivity.MY_CONTEXT = this;
-
         Intent inten = getIntent();
         String msg =  inten.getStringExtra(MainActivity.ONLINE_MODE);
 
+        id = PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString(Chercheur.ID, DEFAULT_ID);
+
         if(msg != null){
             if(msg.equals("ON")){
-                System.out.println(">>>>>>>> OK!!!");
                 setContentView(R.layout.home_page_online);
                 setOnlineMode();
             }else{
@@ -84,8 +107,14 @@ public class MainActivity extends AppCompatActivity
             }
 
         }else{
-            setContentView(R.layout.home_page_offline);
-            setOffLineMode();
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+            if (DEFAULT_ID.equals( id ) ){
+                setContentView(R.layout.home_page_offline);
+                setOffLineMode();
+            }else{
+                setContentView(R.layout.home_page_online);
+                setOnlineMode();
+            }
 
         }
 
@@ -101,12 +130,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         inscription = new Intent(MainActivity.this, InscriptionActivity.class);
         login = new Intent(MainActivity.this, LoginActivity.class);
 
-
+        //on met a jour les info de la page de navigation
+        if (!id.equals(DEFAULT_ID))setDataUser();
 
     }
 
@@ -126,12 +154,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the options menu from XML
@@ -177,6 +199,10 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.nav_sign_in){
             startActivity(inscription);
             this.finish();
+        }else if (id==R.id.nav_sign_out){
+            ReponseFragment reponseFragment = new ReponseFragment();
+            reponseFragment.show(getSupportFragmentManager(), "ValidationD");
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -197,6 +223,7 @@ public class MainActivity extends AppCompatActivity
         offlineRV.setLayoutManager(layoutManager);
         //on ajoute a la liste son adapter
         offlineRV.setAdapter(new AdapterOffreCategorie(LayoutInflater.from(this), dataOC));
+        resetDataUser();
 
     }
 
@@ -222,5 +249,79 @@ public class MainActivity extends AppCompatActivity
         for(int i=0; i<icon.length;i++){
             tabLayout.getTabAt(i).setIcon(icon[i]);
         }
+
     }
+
+    private void resetDataUser(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences.edit().putString(Chercheur.ID, DEFAULT_ID).apply();
+    }
+
+    private void setDataUser(){
+
+        NavigationView navigationView =(NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        TextView nom =(TextView) header.findViewById(R.id.tv_nav_header_name_user);
+        TextView email =(TextView) header.findViewById(R.id.tv_nav_header_email_id_user);
+        nom.setText(preferences.getString(Chercheur.NOM, "") + " " + preferences.getString(Chercheur.PRENOM, "") );
+        email.setText(preferences.getString(Chercheur.ID, "") );
+    }
+
+    public static class ReponseFragment extends DialogFragment {
+        private Button bouton_oui;
+        private Button bouton_non;
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            Dialog dialog = super.onCreateDialog(savedInstanceState);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            return dialog;
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+            View view = inflater.inflate(R.layout.verifie_deconnexion, container, false);
+            bouton_oui = view.findViewById(R.id.bouton_oui);
+            bouton_non = view.findViewById(R.id.bouton_non);
+            bouton_oui.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+                    Call<ChercheurV2> call = service.deconnexion(MainActivity.id);
+                    call.enqueue(new Callback<ChercheurV2>() {
+                        @Override
+                        public void onResponse(Call<ChercheurV2> call, Response<ChercheurV2> response) {
+                            if(response.code() == 200){
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                intent.putExtra(MainActivity.ONLINE_MODE, "OFF");
+                                dismiss();
+                                startActivity(intent);
+                            }else{
+                                //TODO:ACtion a effectuer lorsqu'un probleme survient
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ChercheurV2> call, Throwable t) {
+                                dismiss();
+                                //TODO: completerles action a effectuer lorsqu'une erreur survient
+                        }
+                    });
+
+                }
+            });
+            bouton_non.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
+            return view;
+        }
+    }
+
 }

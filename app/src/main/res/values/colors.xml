@@ -12,4 +12,5 @@
     <color name="colorOrange">#FF5722</color>
     <color name="colorIncolor">#00FFFFFF</color>
     <color name="colorRouge_vin">#B14343</color>
+    <color name="colorTransparent">#02000000</color>
 </resources>

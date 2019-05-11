@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,18 +46,26 @@ public class VosContactFragment extends Fragment {
         suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                if (retriveData()) viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
             }
         });
         precedant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+                if (retriveData()) viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
             }
         });
-        chercheur.setEmail(email.toString());
-        chercheur.setTelephone(telephone.toString());
-//        chercheur.setAdresse(adresse.toString());
         return view;
+    }
+
+    public boolean retriveData(){
+        if (TextUtils.isEmpty(email.getText())){
+            email.setError( getString(R.string.obligation_message) );
+            return false;
+        }
+        chercheur.setEmail(email.getText().toString());
+        chercheur.setTelephone(telephone.getText().toString());
+        chercheur.setAdresse(adresse.getText().toString());
+        return true;
     }
 }

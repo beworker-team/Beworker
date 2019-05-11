@@ -43,7 +43,7 @@
     <string name="securisez_vous">SECURISEZ VOUS</string>
     <string name="password">Mot de Passe *</string>
     <string name="confirmer_password">confirmer Mot de Passe *</string>
-    <string name="date_de_naissance">Age *</string>
+    <string name="date_de_naissance">Date de naissance</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="developpeur_web">Developpeur web
 
@@ -68,4 +68,10 @@
     offre une offre pour les de
     La socite Dreamer.Inc dans le cadre de son lancement
     offre une offre pour les de </string>
+
+    <string name="obligation_message">ce champ est obligatoire</string>
+    <string name="default_id">-1</string>
+    <string name="non">non</string>
+    <string name="oui">oui</string>
+
 </resources>

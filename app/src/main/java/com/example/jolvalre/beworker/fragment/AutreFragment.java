@@ -44,18 +44,23 @@ public class AutreFragment extends Fragment {
         suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                retriveData();
                 viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
             }
         });
         precedant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                retriveData();
                 viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
             }
         });
-        chercheur.setDomaine(domaine.toString());
-        chercheur.setStatut(statut.toString());
         return view;
+    }
+
+    public void retriveData(){
+        chercheur.setDomaine(domaine.getText().toString());
+        chercheur.setStatut(statut.getText().toString());
     }
 
 }

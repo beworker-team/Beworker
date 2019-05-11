@@ -58,31 +58,24 @@ public class SecurityFragment extends Fragment {
             public void onClick(View v) {
 
                 if (!password.getText().toString().equals(confirm_password.getText().toString())) {
-                    Snackbar.make(constraintLayout, "Veillez resaisir le mot de passe", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    password.setText(null);
-                    confirm_password.setText(null);
-                    password.setText(null);
-                    confirm_password.setText(null);
+                    confirm_password.setError("Ne correspond pas au password");
 
                 }
                 else if((password.getText().toString().length()<4 ) || ((password.getText()==null||password.getText().toString().equals("")))){
-                    Snackbar.make(constraintLayout, "Le mot de passe dit contenir au moins 4 caracteres", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    password.setText(null);
-                    confirm_password.setText(null);
-                    password.setText(null);
-                    confirm_password.setText(null);
+                    password.setError("password trop court");
                 }
                 else {
                     //TODO: ternimer l'appel pour le service d'inscrption
+                        chercheur.setMot_de_passe(password.getText().toString());
                         InscriptionActivity.goInOnlineMode();
+
                     }
+
                 }
 
 
         });
-        chercheur.setPassword(password.toString());
+
         return view;
     }
 }
