@@ -202,7 +202,9 @@ public class MainActivity extends AppCompatActivity
         }else if (id==R.id.nav_sign_out){
             ReponseFragment reponseFragment = new ReponseFragment();
             reponseFragment.show(getSupportFragmentManager(), "ValidationD");
-
+        }else if (id== R.id.nav_create_cv){
+            Intent intent = new Intent(this, MakeCvActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

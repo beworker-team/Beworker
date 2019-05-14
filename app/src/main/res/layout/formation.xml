@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_del_formation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_remove"
+        android:padding="4dp"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:rotation="270"/>
+
+    <LinearLayout
+        android:layout_margin="12dp"
+        android:padding="4dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_debut_formation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:hint="debut"/>
+
+        <EditText
+            android:id="@+id/et_fin_formation"
+            android:inputType="date"
+            android:minWidth="160dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="fin"/>
+
+        <EditText
+            android:id="@+id/et_nom_formation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="formation "/>
+        <EditText
+            android:id="@+id/et_instution_formation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Institution"/>
+
+    </LinearLayout>
+</RelativeLayout>

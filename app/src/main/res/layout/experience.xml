@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_del_expr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_remove"
+        android:padding="4dp"
+        android:layout_alignParentRight="true"
+        android:rotation="270"/>
+
+    <LinearLayout
+        android:layout_margin="12dp"
+        android:padding="4dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_debut_expr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:hint="date debut"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_fin_expr"
+                android:inputType="date"
+                android:minWidth="160dp"
+                android:layout_width="wrap_content"
+                android:maxHeight="220dp"
+                android:layout_height="wrap_content"
+                android:hint="date fin "/>
+
+            <CheckBox
+                android:id="@+id/cb_present_expr"
+                android:text="present"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/et_poste_expr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="poste "/>
+        <EditText
+            android:id="@+id/et_instittution_expr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Institution"/>
+
+        <EditText
+            android:id="@+id/et_tache1_expr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="tache 1"/>
+        <EditText
+            android:id="@+id/et_tache2_expr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="tache 2"/>
+        <EditText
+            android:id="@+id/et_tache3_expr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="tache 3"/>
+
+    </LinearLayout>
+</RelativeLayout>

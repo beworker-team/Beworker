@@ -142,18 +142,14 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="22dp"
-
-                        >
+                        android:paddingLeft="22dp">
 
                         <ImageButton
                             android:id="@+id/precedant5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ron"
-                            android:src="@drawable/black_24dp"
-
-                            />
+                            android:src="@drawable/black_24dp" />
                     </RelativeLayout>
 
                 </RelativeLayout>
@@ -169,7 +165,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/connectez_vous_ici"
                         android:textColor="#006db3" />
-
 
                 </RelativeLayout>
 
