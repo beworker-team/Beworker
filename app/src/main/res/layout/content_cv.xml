@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/color2"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MakeCvActivity">
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_make_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+        </android.support.v4.view.ViewPager>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
+        >
+
+
+        <LinearLayout
+            android:id="@+id/ll_print_cv"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="26dp"
+            android:layout_marginBottom="26dp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints">
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_print"/>
+            <TextView
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Imprimer"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_save_cv"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_above="@id/ll_print_cv"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints">
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_save"/>
+            <TextView
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sauvegarder"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

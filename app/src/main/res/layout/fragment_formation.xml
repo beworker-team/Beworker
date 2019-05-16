@@ -7,13 +7,39 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="24dp"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/formation"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text" />
+                <ImageView
+                    android:id="@+id/ib_add_formation"
+                    android:clickable="true"
+                    android:layout_marginTop="36dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_circle_black_24dp"
+                    android:layout_marginLeft="276dp"/>
+            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/ll_list_formation"
                 android:orientation="vertical"
@@ -22,15 +48,7 @@
                 <include layout="@layout/formation"/>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/ib_add_formation"
-                android:clickable="true"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_box"
-                android:padding="2dp"
-                android:layout_marginRight="16dp"/>
+
 
         </LinearLayout>
 

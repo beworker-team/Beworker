@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/iv_del_expr"
         android:layout_width="wrap_content"
@@ -12,66 +13,185 @@
         android:rotation="270"/>
 
     <LinearLayout
-        android:layout_margin="12dp"
-        android:padding="4dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/et_debut_expr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:hint="date debut"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/et_fin_expr"
-                android:inputType="date"
-                android:minWidth="160dp"
-                android:layout_width="wrap_content"
-                android:maxHeight="220dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/color"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="date fin "/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingTop="16dp"
+                android:paddingRight="24dp"
+                android:paddingLeft="24dp"
+                android:paddingBottom="10dp">
 
-            <CheckBox
-                android:id="@+id/cb_present_expr"
-                android:text="present"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
+                    <EditText
+                        android:id="@+id/et_debut_expr"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:hint="date debut"
+                        android:inputType="date" />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:paddingBottom="10dp"
+                android:paddingRight="24dp"
+                android:paddingLeft="24dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_fin_expr"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:hint="date fin"
+                        android:inputType="date" />
+                </android.support.design.widget.TextInputLayout>
+                <CheckBox
+                    android:id="@+id/cb_present_expr"
+                    android:text="present"
+                    android:layout_marginLeft="182dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:paddingBottom="10dp"
+                android:paddingRight="24dp"
+                android:paddingLeft="24dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_poste_expr"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:hint="poste"
+                        android:inputType="text" />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingRight="24dp"
+                android:paddingLeft="24dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_instittution_expr"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:hint="institution"
+                        android:inputType="text" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingRight="24dp"
+                android:paddingLeft="24dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_tache1_expr"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:hint="tache 1"
+                        android:inputType="text" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingRight="24dp"
+                android:paddingLeft="24dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_tache2_expr"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:hint="tache 2"
+                        android:inputType="text" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingBottom="40dp"
+                android:paddingRight="24dp"
+                android:paddingLeft="24dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_tache3_expr"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:hint="tache 3"
+                        android:inputType="text" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
         </LinearLayout>
-
-
-        <EditText
-            android:id="@+id/et_poste_expr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="poste "/>
-        <EditText
-            android:id="@+id/et_instittution_expr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Institution"/>
-
-        <EditText
-            android:id="@+id/et_tache1_expr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="tache 1"/>
-        <EditText
-            android:id="@+id/et_tache2_expr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="tache 2"/>
-        <EditText
-            android:id="@+id/et_tache3_expr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="tache 3"/>
-
     </LinearLayout>
 </RelativeLayout>

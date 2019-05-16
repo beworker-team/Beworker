@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.jolvalre.beworker.R;
 
@@ -25,6 +26,8 @@ public class VotreProfilFragment extends Fragment {
     }
         public static EditText nom;
         public static EditText prenom;
+        public static ImageView profil_emp;
+        public static ImageButton profil_btn;
 
 
 
@@ -38,15 +41,24 @@ public class VotreProfilFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_votreprofil, container, false);
+        final View view = inflater.inflate(R.layout.fragment_votreprofil, container, false);
         //autre chose
         nom = view.findViewById(R.id.nom);
+        profil_btn = view.findViewById(R.id.photo_btn);
+        profil_emp = view.findViewById(R.id.photo_em);
         prenom = view.findViewById(R.id.prenom);
         suivant1 = view.findViewById(R.id.suivant);
         suivant1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (retriveDate()) viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+            }
+        });
+        profil_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profil_emp.setImageResource(R.drawable.photo);
+
             }
         });
         return view;
