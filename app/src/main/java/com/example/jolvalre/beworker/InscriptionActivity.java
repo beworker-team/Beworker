@@ -18,8 +18,6 @@ import com.example.jolvalre.beworker.fragment.SignInFragment;
 import com.example.jolvalre.beworker.network.RetrofitInstance;
 import com.example.jolvalre.beworker.service.BeworkerService;
 
-import java.util.Date;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

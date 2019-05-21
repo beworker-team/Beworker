@@ -9,16 +9,18 @@ public class Offre {
     private Long id_offre;
     @SerializedName("id_employeur")
     private int id_employeur;
+    @SerializedName("id_categorie")
+    private int id_categorie;
     @SerializedName("poste")
     private String poste;
     @SerializedName("ville")
     private String ville;
     @SerializedName("description")
     private String description;
-    @SerializedName("date")
-    private String date;
     @SerializedName("langue")
     private String langue;
+    @SerializedName("date")
+    private String date;
 
     public Offre() {
 

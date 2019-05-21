@@ -24,4 +24,7 @@ public interface BeworkerService {
     @GET("/chercheur/deconnexion/{email}")
     Call<ChercheurV2> deconnexion (@Path("email") String email);
 
+    @GET("/offre/offre_par_categorie/{id_categorie}")
+    Call<ChercheurV2> offreCategorie (@Path("id_categorie") String email);
+
 }

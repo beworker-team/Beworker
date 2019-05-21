@@ -6,8 +6,12 @@ import java.util.Date;
 
 public class ChercheurV2 {
 
+    @SerializedName("id_chercheur")
+    private Long id_chercheur;
     @SerializedName("nom")
     private String nom;
+    @SerializedName("photo")
+    private String photo;
     @SerializedName("prenom")
     private String prenom;
     @SerializedName("mot_de_passe")

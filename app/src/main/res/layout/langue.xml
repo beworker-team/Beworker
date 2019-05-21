@@ -46,7 +46,7 @@
                 android:id="@+id/et_langue"
                 android:layout_width="270dp"
                 android:layout_height="wrap_content"
-                android:hint="langue"
+                android:hint="@string/langue"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
@@ -70,7 +70,7 @@
                 android:id="@+id/et_niveau_langue"
                 android:layout_width="270dp"
                 android:layout_height="wrap_content"
-                android:hint="niveau"
+                android:hint="@string/niveau"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 

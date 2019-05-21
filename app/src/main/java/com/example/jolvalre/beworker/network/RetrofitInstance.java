@@ -12,7 +12,7 @@ public class RetrofitInstance {
      * TODO: Remplacer cette adresse par l'adresse effective une deploye
      * */
 //    private static String BASE_URL = "http://192.168.43.216:8081";
-    private static String BASE_URL = "http://192.168.43.95:8081";
+    private static String BASE_URL = "http://947f0bf9.ngrok.io";
 
     /**
      * Retourne une instance retrofit a base de BASE_URL

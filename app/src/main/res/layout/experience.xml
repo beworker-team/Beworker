@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <ImageView
@@ -44,7 +45,7 @@
                         android:id="@+id/et_debut_expr"
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:hint="date debut"
+                        android:hint="@string/date_de_debut"
                         android:inputType="date" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -68,12 +69,12 @@
                         android:id="@+id/et_fin_expr"
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:hint="date fin"
+                        android:hint="@string/date_de_fin"
                         android:inputType="date" />
                 </android.support.design.widget.TextInputLayout>
                 <CheckBox
                     android:id="@+id/cb_present_expr"
-                    android:text="present"
+                    android:text="@string/actuel"
                     android:layout_marginLeft="182dp"
                     android:layout_marginTop="14dp"
                     android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                         android:id="@+id/et_poste_expr"
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:hint="poste"
+                        android:hint="@string/poste"
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -122,7 +123,7 @@
                         android:id="@+id/et_instittution_expr"
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:hint="institution"
+                        android:hint="@string/institution"
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
@@ -144,7 +145,7 @@
                         android:id="@+id/et_tache1_expr"
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:hint="tache 1"
+                        android:hint="@string/tache_1"
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
@@ -166,7 +167,7 @@
                         android:id="@+id/et_tache2_expr"
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:hint="tache 2"
+                        android:hint="@string/tache_2"
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
@@ -188,7 +189,7 @@
                         android:id="@+id/et_tache3_expr"
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:hint="tache 3"
+                        android:hint="@string/tache_3"
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
