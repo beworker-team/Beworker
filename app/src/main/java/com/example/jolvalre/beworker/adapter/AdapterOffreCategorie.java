@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jolvalre.beworker.OffreCategorie;
+import com.example.jolvalre.beworker.entities.OffreCategorie;
 import com.example.jolvalre.beworker.R;
 import com.example.jolvalre.beworker.viewholder.CatOffreViewHolder;
 
@@ -49,6 +49,5 @@ public class AdapterOffreCategorie extends RecyclerView.Adapter<CatOffreViewHold
     public int getItemCount() {
         return list.size();
     }
-
 
 }

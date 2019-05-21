@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +16,6 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -31,8 +32,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jolvalre.beworker.entities.Chercheur;
+import com.example.jolvalre.beworker.entities.ChercheurV2;
+import com.example.jolvalre.beworker.network.RetrofitInstance;
+import com.example.jolvalre.beworker.service.BeworkerService;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -56,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    //private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -65,6 +75,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private ImageView return_button;
     private Intent homePage;
+    private Intent inscription;
+    private TextView aller_inscription;
+
+//    private  RestTemplate restTemplate = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +95,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View v) {
                 startActivity(homePage);
+            }
+        });
+
+        inscription = new Intent(LoginActivity.this, InscriptionActivity.class);
+
+        aller_inscription = findViewById(R.id.aller_inscription);
+        aller_inscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(inscription);
             }
         });
 
@@ -101,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
 
-//                attemptLogin();
+                attemptLogin();
                 goInOnlineMode();
             }
         });
@@ -160,9 +184,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+//
 
         // Reset errors.
         mEmailView.setError(null);
@@ -201,8 +223,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
         }
     }
 
@@ -267,6 +287,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Show primary email addresses first. Note that there won't be
                 // a primary email address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+
     }
 
     @Override
@@ -291,7 +312,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
         mEmailView.setAdapter(adapter);
     }
 
@@ -306,69 +326,99 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
-        private final String mPassword;
+    //TODO: remettre le service de connexion actif
+    //    fonction passer en mode connecter
+    private void goInOnlineMode(){
 
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
+        BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        Call<ChercheurV2> call = service.authentifiaction(email,password);
+        call.enqueue(new Callback<ChercheurV2>() {
+            @Override
+            public void onResponse(Call<ChercheurV2> call, Response<ChercheurV2> response) {
+                    if (response.code() == 200){
 
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+                        //on sauvegade les donnees de l'utilisateur
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        ChercheurV2 chercheur = response.body();
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
+                        editor.putString(Chercheur.ID, chercheur.getEmail() );
+                        editor.putString(Chercheur.NOM, chercheur.getNom() );
+
+                        editor.putString(Chercheur.PRENOM, chercheur.getPrenom() );
+                        editor.putString(Chercheur.EMAIL, chercheur.getEmail() );
+
+                        editor.putString(Chercheur.PASSWORD, chercheur.getMot_de_passe() );
+
+                        editor.putString(Chercheur.GENRE, chercheur.getGenre() );
+                        editor.putString(Chercheur.BIRTH_DAY, chercheur.getDate_de_naissance() );
+
+                        editor.putString(Chercheur.DOMAINE, chercheur.getDomaine() );
+                        editor.putString(Chercheur.STATUT, chercheur.getStatut() );
+
+                        editor.putString(Chercheur.VILLE, chercheur.getVille() );
+                        editor.putString(Chercheur.TELEPHONE, chercheur.getTelephone() );
+
+                        editor.apply();
+
+                        //on fait disparaitre le dialogue box et on passe a la page d'accueil en ONLINE_MODE
+                        showProgress(false);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra(MainActivity.ONLINE_MODE, "ON");
+                        startActivity(intent);
+                        LoginActivity.this.finish();
+                    }
+                    else {
+                        System.out.println("BODY_FAKE_0" + response);
+                        System.out.println("BODY_FAKE_0" + call.request());
+                        System.out.println("igor nde ");
+                        showProgress(false);
+                    }
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
+            @Override
+            public void onFailure(Call<ChercheurV2> call, Throwable t) {
+                System.out.println("BODY_FAKE_0"+ call.request());
+                System.out.println("igor nd ");
             }
+        });
 
-            // TODO: register the new account here.
-            return true;
-        }
+//        Call<Chercheur> call = service.autthentifiaction(email, password);
+//        call.enqueue(new Callback<Chercheur>() {
+//            @Override
+//            public void onResponse(Call<Chercheur> call, Response<Chercheur> response) {
+//                Log.i("CONNEXION_8", response.toString());
+//                if(response.body()!=null){
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    intent.putExtra(MainActivity.ONLINE_MODE, "ON");
+//                    startActivity(intent);
+//                    LoginActivity.this.finish();
+//                    Log.i("CONNEXION_8_BODY", response.toString());
+//                }else{
+//                    showProgress(false);
+//                    System.out.println(" BODY_CONNEXION "+response.body());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Chercheur> call, Throwable t) {
+//                showProgress(false);
+//                Log.i("CONNEXION", call.request().toString());
+//            }
+//        });
 
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
     }
 
-//    fonction passer en mode connecter
-    private void goInOnlineMode(){
+    @Override
+    public void onBackPressed() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.putExtra(MainActivity.ONLINE_MODE, "ON");
+//        intent.putExtra(MainActivity.ONLINE_MODE, "ON");
         startActivity(intent);
         this.finish();
     }
+
 }
 

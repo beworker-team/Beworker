@@ -30,8 +30,8 @@
     <string name="prenom">Prénom *</string>
     <string name="completez_profil">COMPLETEZ PROFIL</string>
     <string name="age">Age *</string>
-    <string name="ville">ville</string>
-    <string name="sexe">sexe</string>
+    <string name="ville">Ville</string>
+    <string name="sexe">Sexe</string>
     <string name="masculin">Masculin</string>
     <string name="feminin">Féminin</string>
     <string name="vos_contact">VOS CONTACTS</string>
@@ -41,8 +41,65 @@
     <string name="statut">Statut</string>
     <string name="connectez_vous_ici">Connectez-vous ici</string>
     <string name="securisez_vous">SECURISEZ VOUS</string>
-    <string name="password">Mot de Passe *</string>
-    <string name="confirmer_password">confirmer Mot de Passe *</string>
-    <string name="date_de_naissance">Date de naissance *</string>
+    <string name="password">Mot de passe *</string>
+    <string name="confirmer_password">Confirmer mot de passe *</string>
+    <string name="date_de_naissance">Date de naissance</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="competence">Compétences</string>
+    <string name="developpeur_web">Developpeur web
+
+    </string>
+    <string name="poste_le_07_02_2019">Posté le: 07/02/2019</string>
+    <string name="seed_innov_recrute_de_nouveau_developpeur_web">Seed innov recrute de nouveau developpeur web
+    La sociéte Dreamer.Inc dans le cadre de son lancement
+    offre une offre pour les de
+    La sociéte Dreamer.Inc dans le cadre de son lancement
+    offre une offre pour les de
+    La socite Dreamer.Inc dans le cadre de son lancement
+    offre une offre pour les de
+    La socite Dreamer.Inc dans le cadre de son lancement
+    offre une offre pour les de
+    La socite Dreamer.Inc dans le cadre de son lancement
+    offre une offre pour les de
+    La socite Dreamer.Inc dans le cadre de son lancement
+    offre une offre pour les de
+    La socite Dreamer.Inc dans le cadre de son lancement
+    offre une offre pour les de
+    La socite Dreamer.Inc dans le cadre de son lancement
+    offre une offre pour les de
+    La socite Dreamer.Inc dans le cadre de son lancement
+    offre une offre pour les de </string>
+
+    <string name="obligation_message">Ce champ est obligatoire</string>
+    <string name="default_id">-1</string>
+    <string name="non">Non</string>
+    <string name="oui">Oui</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="niveau">Niveau</string>
+    <string name="informations_personnelles">Informations personnelles</string>
+    <string name="experiences_professionnelles">Experiences professionnelles</string>
+    <string name="formation">Formations</string>
+    <string name="preference">Préférences</string>
+    <string name="experiences_pro">Experiences_pro</string>
+    <string name="nationalite">Nationalité</string>
+    <string name="date_de_fin">Date de fin</string>
+    <string name="date_de_debut">Date de début</string>
+    <string name="institution">Institution</string>
+    <string name="poste">Poste</string>
+    <string name="tache_1">Tâche 1</string>
+    <string name="tache_2">Tâche 2</string>
+    <string name="tache_3">Tâche 3</string>
+    <string name="actuel">Actuel</string>
+    <string name="langue">Langue</string>
+    <string name="nde_singe_igor_dybala">NDE SINGE Igor Dybala</string>
+    <string name="_29_ans">29 ans</string>
+    <string name="medecin_generaliste">Medecin Généraliste</string>
+    <string name="contacts">Contacts</string>
+    <string name="igorndesigne_gmail_com">igorndesigne@gmail.com</string>
+    <string name="_237656363919">+237656363919</string>
+    <string name="yaound_cameroun">Yaoundé - Cameroun</string>
+    <string name="email_">Email :</string>
+
 </resources>

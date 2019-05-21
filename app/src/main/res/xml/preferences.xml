@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <EditTextPreference
+        android:key =  "id"
+        android:title="my ID"
+        android:defaultValue="@string/default_id"/>
+    <Preference
+        android:key = "nom"
+        android:title="nom"/>
+    <Preference
+        android:key = "prenom"
+        android:title="prenom"/>
+    <Preference
+        android:key = "password"/>
+    <Preference
+        android:key = "domaine"/>
+    <Preference
+        android:key = "birth_day"/>
+    <Preference
+        android:key = "genre"/>
+    <Preference
+        android:key = "statut"/>
+    <Preference
+        android:key = "telephone"/>
+    <Preference
+        android:key = "ville"/>
+    <Preference
+        android:key = "email"/>
+    <Preference
+        android:key = "adresse"/>
+</PreferenceScreen>

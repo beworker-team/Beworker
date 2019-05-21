@@ -1,12 +1,16 @@
 package com.example.jolvalre.beworker.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jolvalre.beworker.Offre;
+import com.example.jolvalre.beworker.MainActivity;
+import com.example.jolvalre.beworker.OffreActivity;
+import com.example.jolvalre.beworker.entities.Offre;
 import com.example.jolvalre.beworker.R;
 import com.example.jolvalre.beworker.viewholder.OffreViewH;
 
@@ -25,6 +29,9 @@ public class AdapterOffreH extends RecyclerView.Adapter<OffreViewH> {
     //le LayoutInflater
     LayoutInflater inflater;
 
+    //definit l'id de l'offre a la quelle on veut acceder
+    int toacces;
+
     public AdapterOffreH(ArrayList<Offre> list, LayoutInflater inflater) {
         this.list = list;
         this.inflater = inflater;
@@ -38,12 +45,20 @@ public class AdapterOffreH extends RecyclerView.Adapter<OffreViewH> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OffreViewH offreViewH, int i) {
+    public void onBindViewHolder(@NonNull final OffreViewH offreViewH, int i) {
         Offre o = list.get(i);
         //on met a jour les element de la vue
 //        offreViewH.vPoste.setText(o.getPoste());
 //        offreViewH.vDescription.setText(o.getDescription());
 //        offreViewH.vDate.setText(o.getDate());
+        toacces = i;
+        offreViewH.base.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.openOffre(toacces);
+            }
+        });
+        Intent intent = new Intent(MainActivity.MY_CONTEXT, OffreActivity.class);
     }
 
 

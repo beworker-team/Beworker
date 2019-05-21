@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jolvalre.beworker.adapter.AdapterOffreCategorie;
-import com.example.jolvalre.beworker.Offre;
-import com.example.jolvalre.beworker.OffreCategorie;
+import com.example.jolvalre.beworker.entities.Offre;
+import com.example.jolvalre.beworker.entities.OffreCategorie;
 import com.example.jolvalre.beworker.R;
 
 import java.util.ArrayList;

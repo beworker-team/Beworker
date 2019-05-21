@@ -1,5 +1,7 @@
 package com.example.jolvalre.beworker;
 
+import com.example.jolvalre.beworker.entities.Offre;
+
 import java.util.ArrayList;
 
 public class OffreCategorie {
