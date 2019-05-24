@@ -106,6 +106,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        inscription = new Intent(LoginActivity.this, InscriptionActivity.class);
+
+        aller_inscription = findViewById(R.id.aller_inscription);
+        aller_inscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(inscription);
+            }
+        });
+
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

@@ -96,6 +96,13 @@ public class MainActivity extends AppCompatActivity
         MainActivity.MY_CONTEXT.startActivity(intent);
     }
 
+    //Cette fontion sera appeler a chaque fois qu'on voudra ouvrir une offre
+    public static void openOffre(int id){
+        Intent intent = new Intent(MainActivity.MY_CONTEXT, OffreActivity.class);
+        MainActivity.MY_CONTEXT.startActivity(intent);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
