@@ -1,16 +1,25 @@
 package com.example.jolvalre.beworker;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.support.design.widget.NavigationView;
@@ -22,21 +31,42 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ViewFlipper;
-
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+import android.widget.TextView;
 import com.example.jolvalre.beworker.adapter.AdapterOffreCategorie;
 import com.example.jolvalre.beworker.adapter.PagerAdapter;
+import com.example.jolvalre.beworker.entities.Chercheur;
+import com.example.jolvalre.beworker.entities.MyCategorie;
+import com.example.jolvalre.beworker.entities.Offre;
+import com.example.jolvalre.beworker.entities.OffreCategorie;
+import com.example.jolvalre.beworker.fragment.SignInFragment;
+import com.example.jolvalre.beworker.network.RetrofitInstance;
+import com.example.jolvalre.beworker.service.BeworkerService;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     public static String ONLINE_MODE = "ONLINE_MODE";
 
-    /*
+    public static String DEFAULT_ID = "-1";
+
+    public static String MY_PREFS = "preferences";
+    //l'offre dont on souhaite voir le contenue
+    public static Offre OFFRE_TO_OPEN =null;
+
+    public static  Context MY_CONTEXT;
+
+    /**
      * La variable viewpager fait référence au layout qui va contenir les differents
      * fragments de notre activité
      * La variable tablayout fait référence au layout qui nous permet de navigeuer entre:
@@ -48,29 +78,37 @@ public class MainActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private Intent login, inscription;
 
+    /**
+     * cette variable permet de savoir si le delai d'appui sur la touche retour est inferieur a 2s
+     * */
+    private long last_press= -1;
+
+    public static String id = "";
     /*
     offlineRV le recycleView de la page d' acceuil non connecter il permettra d'afficher les offres*/
     private RecyclerView offlineRV = null;
+    private ArrayList<OffreCategorie> dataOC;
+
+    //Cette fontion sera appeler a chaque fois qu'on voudra ouvrir une offre
+    public static void openOffre(Offre offre){
+        OFFRE_TO_OPEN = offre;
+        Intent intent = new Intent(MainActivity.MY_CONTEXT, OffreActivity.class);
+        MainActivity.MY_CONTEXT.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //on specifie le context de l'activite
+        MainActivity.MY_CONTEXT = this;
         Intent inten = getIntent();
         String msg =  inten.getStringExtra(MainActivity.ONLINE_MODE);
 
-//        if (msg!=null){
-//            if (msg.equals("ON")){
-//                setContentView(R.layout.home_page_online);
-//                setOnlineMode();
-//            }else{
-//
-//            }
-//
-//        }
+        id = PreferenceManager.getDefaultSharedPreferences(MainActivity.this).getString(Chercheur.ID, DEFAULT_ID);
+
         if(msg != null){
             if(msg.equals("ON")){
-                System.out.println(">>>>>>>> OK!!!");
                 setContentView(R.layout.home_page_online);
                 setOnlineMode();
             }else{
@@ -79,13 +117,16 @@ public class MainActivity extends AppCompatActivity
             }
 
         }else{
-            setContentView(R.layout.home_page_offline);
-            setOffLineMode();
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+            if (DEFAULT_ID.equals( id ) ){
+                setContentView(R.layout.home_page_offline);
+                setOffLineMode();
+            }else{
+                setContentView(R.layout.home_page_online);
+                setOnlineMode();
+            }
 
         }
-
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -99,10 +140,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        login = new Intent(MainActivity.this, LoginActivity.class);
-
-        inscription = new Intent(MainActivity.this, InscriptionActivity.class);
+        //on met a jour les info de la page de navigation
+        if (!id.equals(DEFAULT_ID))setDataUser();
 
     }
 
@@ -112,16 +151,16 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            long time = System.currentTimeMillis();
+            if (last_press !=-1 && (time - last_press)<2000){
+                super.onBackPressed();
+            }else{
+                last_press =time;
+                Toast.makeText(getApplicationContext(), "Appuyer de nouveau pour quitter",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the options menu from XML
@@ -162,9 +201,75 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_view) {
             // Handle the camera action
         } else if (id == R.id.nav_log_in) {
-            startActivity(login);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }else if (id == R.id.nav_sign_in){
-            startActivity(inscription);
+            Intent intent = new Intent(this, InscriptionActivity.class);
+            startActivity(intent);
+        }else if (id==R.id.nav_sign_out){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.title_deconnexion);
+            builder.setMessage(R.string.message_ask_deconnxion);
+            builder.setCancelable(false);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                    BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                    Call<Integer> call = service.deconnexion(preferences.getString(Chercheur.EMAIL, ""));
+                    call.enqueue(new Callback<Integer>() {
+                        @Override
+                        public void onResponse(Call<Integer> call, Response<Integer> response) {
+                            if(response.code() == 200){
+                                System.out.println(response.toString());
+                                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                intent.putExtra(MainActivity.ONLINE_MODE, "OFF");
+                                startActivity(intent);
+                                MainActivity.this.finish();
+                            }else{
+                                //TODO:ACtion a effectuer lorsqu'un probleme survient
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle(R.string.title_error_onresponse);
+                                builder.setMessage(R.string.message_error_onResponse);
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                builder.create().show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Integer> call, Throwable t) {
+                            //TODO: completerles action a effectuer lorsqu'une erreur survient
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle(R.string.title_error_onfailure);
+                            builder.setMessage(R.string.message_onfailure);
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            builder.create().show();
+                        }
+                    });
+                }
+            });
+            builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+        }else if (id== R.id.nav_create_cv){
+            Intent intent = new Intent(this, MakeCvActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -175,16 +280,14 @@ public class MainActivity extends AppCompatActivity
     private void setOffLineMode(){
         offlineRV = (RecyclerView)findViewById(R.id.recycle_view_off_line_mode);
         //la liste des categorie
-        ArrayList<OffreCategorie> dataOC = new ArrayList<OffreCategorie>();
-        //on initialise la liste
-        for(int i=0; i<4; i++){
-            dataOC.add(new OffreCategorie());
-        }
+
+
+        offlineRV.setAdapter(new AdapterOffreCategorie(LayoutInflater.from(MainActivity.this), dataOC));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         //RecyclerView rv =(RecyclerView) view.findViewById(R.id.recycle_view_fragment_home);
         offlineRV.setLayoutManager(layoutManager);
-        //on ajoute a la liste son adapter
-        offlineRV.setAdapter(new AdapterOffreCategorie(LayoutInflater.from(this), dataOC));
+        loadingData();
+        resetDataUser();
 
     }
 
@@ -210,5 +313,166 @@ public class MainActivity extends AppCompatActivity
         for(int i=0; i<icon.length;i++){
             tabLayout.getTabAt(i).setIcon(icon[i]);
         }
+
     }
+
+    private void resetDataUser(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences.edit().putString(Chercheur.ID, DEFAULT_ID).apply();
+        NavigationView navigationView =(NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView nom =(TextView) header.findViewById(R.id.tv_nav_header_name_user);
+        TextView email =(TextView) header.findViewById(R.id.tv_nav_header_email_id_user);
+
+        nom.setText(R.string.nav_header_title);
+        email.setText(R.string.nav_header_subtitle);
+    }
+
+    private void setDataUser(){
+
+        NavigationView navigationView =(NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        TextView nom =(TextView) header.findViewById(R.id.tv_nav_header_name_user);
+        TextView email =(TextView) header.findViewById(R.id.tv_nav_header_email_id_user);
+        if (preferences.getString(Chercheur.ID, "").equals(DEFAULT_ID)){
+            nom.setText(R.string.nav_header_title );
+            email.setText(R.string.nav_header_subtitle );
+        }else{
+            nom.setText(preferences.getString(Chercheur.NOM, "") + " " + preferences.getString(Chercheur.PRENOM, "") );
+            email.setText(preferences.getString(Chercheur.EMAIL, "") );
+        }
+
+    }
+
+    public void refreshOffLine(View view) {
+        View refresh = findViewById(R.id.refresh_offline);
+        refresh.setVisibility(View.GONE);
+        loadingData();
+
+    }
+
+    public void loadingData(){
+        showWaiting(true);
+        dataOC = new ArrayList<OffreCategorie>();
+        BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+        Call<ArrayList<MyCategorie>> call = service.listCategories();
+        call.enqueue(new Callback<ArrayList<MyCategorie>>() {
+            @Override
+            public void onResponse(Call<ArrayList<MyCategorie>> call, Response<ArrayList<MyCategorie>> response) {
+                showWaiting(false);
+                if (response.code()!= 200){
+                    showRefresh();
+                    return;
+                }
+
+                ArrayList<MyCategorie> list = response.body();
+                if(list != null) for (MyCategorie c: list ){
+
+                    OffreCategorie oc =new OffreCategorie();
+                    oc.id = c.getId_categorie();
+                    oc.setTitre(c.getCategorie());
+                    dataOC.add(oc);
+                }
+
+                Toast.makeText(getBaseContext(),"yesss", Toast.LENGTH_LONG).show();
+                ( (AdapterOffreCategorie)offlineRV.getAdapter() ).updateData(dataOC);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<MyCategorie>> call, Throwable t) {
+                //TODO: EN_CAS_DEcHEC_1 lorsaue le chargement des categorie echoue
+                showRefresh();
+                showWaiting(false);
+            }
+        });
+    }
+
+    public void showRefresh(){
+        View refresh = findViewById(R.id.refresh_offline);
+        refresh.setVisibility(View.VISIBLE);
+    }
+
+    public void showWaiting(boolean visible){
+        View refresh = findViewById(R.id.waitin_offline);
+        refresh.setVisibility(visible? View.VISIBLE: View.GONE) ;
+    }
+
+    @SuppressLint("ValidFragment")
+    public static class ReponseFragment extends DialogFragment {
+        private Button bouton_oui;
+        private Button bouton_non;
+
+        MainActivity activity;
+
+        @SuppressLint("ValidFragment")
+        public ReponseFragment(MainActivity activity) {
+            this.activity = activity;
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            Dialog dialog = super.onCreateDialog(savedInstanceState);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            return dialog;
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+            View view = inflater.inflate(R.layout.verifie_deconnexion, container, false);
+            return view;
+        }
+
+        @Override
+        public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            bouton_oui = view.findViewById(R.id.bouton_oui);
+            bouton_non = view.findViewById(R.id.bouton_non);
+            bouton_oui.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    view.findViewById(R.id.rl_ask_deconnexion).setVisibility(View.GONE);
+                    view.findViewById(R.id.rl_show_progress_deconnexion).setVisibility(View.VISIBLE);
+                    BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+                    Call<Integer> call = service.deconnexion(MainActivity.id);
+                    call.enqueue(new Callback<Integer>() {
+                        @Override
+                        public void onResponse(Call<Integer> call, Response<Integer> response) {
+                            System.out.println("response code deconnexion "+response.code());
+                            if(response.code() == 200){
+                                System.out.println(response.toString());
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                intent.putExtra(MainActivity.ONLINE_MODE, "OFF");
+                                dismiss();
+                                startActivity(intent);
+                                activity.finish();
+                            }else{
+                                dismiss();
+                                System.out.println("yo  "+response.toString());
+                                //TODO:ACtion a effectuer lorsqu'un probleme survient
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Integer> call, Throwable t) {
+                            System.out.println("yoyyo   ");
+                            dismiss();
+                            //TODO: completerles action a effectuer lorsqu'une erreur survient
+                        }
+                    });
+
+                }
+            });
+            bouton_non.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
+        }
+    }
+
 }

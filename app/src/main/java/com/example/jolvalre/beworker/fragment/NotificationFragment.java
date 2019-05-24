@@ -9,10 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.example.jolvalre.beworker.adapter.AdapterNotification;
-import com.example.jolvalre.beworker.Notification;
+import com.example.jolvalre.beworker.entities.Notification;
 import com.example.jolvalre.beworker.R;
 
 import java.util.ArrayList;
@@ -45,9 +44,7 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        for (int i = 0; i<7;i++){
-            listNotif.add(new Notification());
-        }
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         RecyclerView rv = (RecyclerView)view.findViewById(R.id.recycle_view_fragment_notication);
         rv.setLayoutManager(layoutManager);

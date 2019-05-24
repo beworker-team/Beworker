@@ -1,272 +1,136 @@
 package com.example.jolvalre.beworker;
 
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
+import com.example.jolvalre.beworker.adapter.PagerAdapter2;
+import com.example.jolvalre.beworker.entities.Chercheur;
+import com.example.jolvalre.beworker.entities.ChercheurV2;
+import com.example.jolvalre.beworker.fragment.SignInFragment;
+import com.example.jolvalre.beworker.network.RetrofitInstance;
+import com.example.jolvalre.beworker.service.BeworkerService;
+
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InscriptionActivity extends AppCompatActivity {
 
-    ImageButton suivant,suivant2, precedant2, suivant3, precedant3,precedant4,suivant4,fab,suivant5,precedant5;
-    LinearLayout page1, page2,page3,page4,page5;
-    ConstraintLayout ConstraintLayout;
-    EditText Nom,Prenom,Age,Ville,Email,Telephone,Adresse,Password,Confirme_password;
-    RadioGroup radioGroup;
-    RadioButton Sexe_masculin , Sexe_feminin;
-    Boolean from_test = true;
-    Animation animFadeIn,animFadeIn2,animFadeIn3;
+   public static InscriptionActivity current;
+   public static ViewPager viewPager;
+   public static ChercheurV2 chercheur = new ChercheurV2();
 
+    SignInFragment newDialog;
 
+    //    fonction passer en mode connecter
+    public static void goInOnlineMode(){
 
+        BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+//        Date d =new Date();
+//        ChercheurV2 c = new ChercheurV2("moitoi@gmail.com",
+//                "moi",
+//                "toi",
+//                "2012-05-12",
+//                "M",
+//                "moitoi",
+//                "mobile");
+        System.out.println(chercheur);
+        Call<ChercheurV2> call = service.inscrireUser(chercheur);
+        InscriptionActivity.current.mShowDialog();
+        call.enqueue(new Callback<ChercheurV2>() {
+            @Override
+            public void onResponse(Call<ChercheurV2> call, Response<ChercheurV2> response) {
+                System.out.println(call.request());
+                Log.i("INSCRIPTION", response.toString());
+                System.out.println(response.toString());
+                if (response.code() == 200 ){
+                    //on met a jour les donnees des utilisateur
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(InscriptionActivity.current);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    ChercheurV2 chercheur = response.body();
+
+                    editor.putString(Chercheur.ID, String.valueOf(chercheur.getId_chercheur()) );
+                    editor.putString(Chercheur.NOM, chercheur.getNom() );
+
+                    editor.putString(Chercheur.PRENOM, chercheur.getPrenom() );
+                    editor.putString(Chercheur.EMAIL, chercheur.getEmail() );
+
+                    editor.putString(Chercheur.PASSWORD, chercheur.getMot_de_passe() );
+
+                    editor.putString(Chercheur.GENRE, chercheur.getGenre() );
+                    editor.putString(Chercheur.BIRTH_DAY, chercheur.getDate_de_naissance().split("T")[0] );
+
+                    editor.putString(Chercheur.DOMAINE, chercheur.getDomaine() );
+                    editor.putString(Chercheur.STATUT, chercheur.getStatut() );
+
+                    editor.putString(Chercheur.VILLE, chercheur.getVille() );
+                    editor.putString(Chercheur.TELEPHONE, String.valueOf(chercheur.getTelephone()) );
+
+                    editor.apply();
+
+                    Intent intent = new Intent(InscriptionActivity.current, MainActivity.class);
+                    intent.putExtra(MainActivity.ONLINE_MODE, "ON");
+                    InscriptionActivity.current.startActivity(intent);
+                    InscriptionActivity.current.finish();
+                }
+                else{
+                    System.out.println("header +++"+call.request().url());
+                    System.out.println("header +++");
+                    System.out.println("jojo");
+                    Toast.makeText(InscriptionActivity.current, "l'adresse Email existe deja "+ response.code(), Toast.LENGTH_LONG).show();
+                    InscriptionActivity.current.mDismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ChercheurV2> call, Throwable t) {
+                Toast.makeText(current, "Probleme de connexion", Toast.LENGTH_SHORT).cancel();
+                InscriptionActivity.current.mDismiss();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inscription);
+        InscriptionActivity.current = this;
 
-
-        Nom = findViewById(R.id.nom);
-        Prenom = findViewById(R.id.prenom);
-        Age = findViewById(R.id.age);
-        Ville = findViewById(R.id.ville);
-        Email = findViewById(R.id.email);
-        Telephone = findViewById(R.id.telephone);
-        Adresse = findViewById(R.id.adresse);
-        Password = findViewById(R.id.password);
-        Confirme_password = findViewById(R.id.confirme_password);
-        Sexe_feminin = findViewById(R.id.sexe_feminin);
-        Sexe_masculin = findViewById(R.id.sexe_masculin);
-
-
-
-        page1 = findViewById(R.id.page1);
-        page2 = findViewById(R.id.page2);
-        page3 = findViewById(R.id.page3);
-        page4 = findViewById(R.id.page4);
-        page5 = findViewById(R.id.page5);
-        suivant = findViewById(R.id.suivant);
-        suivant2 = findViewById(R.id.suivant2);
-        suivant3 = findViewById(R.id.suivant3);
-        precedant3 = findViewById(R.id.precedant3);
-        precedant2 = findViewById(R.id.precedant2);
-        suivant4 = findViewById(R.id.suivant4);
-        precedant4 = findViewById(R.id.precedant4);
-        suivant5 = findViewById(R.id.suivant5);
-        precedant5 = findViewById(R.id.precedant5);
-        ConstraintLayout = findViewById(R.id.constraintlayout);
-
-
-
-
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fab.startAnimation(animFadeIn2);
-                Snackbar snackbar = Snackbar
-                        .make(ConstraintLayout, "Message is deleted", Snackbar.LENGTH_LONG)
-                        .setAction("UNDO", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Snackbar snackbar1 = Snackbar.make(ConstraintLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
-                                snackbar1.show();
-                            }
-                        });
-
-                snackbar.show();
-            }
-        });
-
-        animFadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fabe_in);
-        animFadeIn2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fabe_in2);
-        animFadeIn3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fabe_in3);
-
-
-
-        suivant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                suivant.startAnimation(animFadeIn2);
-                page1.setVisibility(View.GONE);
-                page2.setVisibility(View.VISIBLE);
-                page2.startAnimation(animFadeIn);
-
-            }
-        });
-
-        suivant2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                suivant2.startAnimation(animFadeIn2);
-                page2.setVisibility(View.GONE);
-                page3.setVisibility(View.VISIBLE);
-                page3.startAnimation(animFadeIn);
-            }
-        });
-
-
-        precedant2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                precedant2.startAnimation(animFadeIn2);
-                page2.setVisibility(View.GONE);
-                page1.setVisibility(View.VISIBLE);
-                page1.startAnimation(animFadeIn3);
-
-            }
-        });
-        precedant3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                precedant3.startAnimation(animFadeIn2);
-                page3.setVisibility(View.GONE);
-                page2.setVisibility(View.VISIBLE);
-                page2.startAnimation(animFadeIn3);
-            }
-        });
-        precedant4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                precedant4.startAnimation(animFadeIn2);
-                page4.setVisibility(View.GONE);
-                page3.setVisibility(View.VISIBLE);
-                page3.startAnimation(animFadeIn3);
-            }
-        });
-        precedant5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                precedant5.startAnimation(animFadeIn2);
-                page5.setVisibility(View.GONE);
-                page4.setVisibility(View.VISIBLE);
-                page4.startAnimation(animFadeIn3);
-            }
-        });
-        suivant3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                suivant3.startAnimation(animFadeIn2);
-                page3.setVisibility(View.GONE);
-                page4.setVisibility(View.VISIBLE);
-                page4.startAnimation(animFadeIn);
-            }
-        });
-
-        suivant4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                suivant4.startAnimation(animFadeIn2);
-                page4.setVisibility(View.GONE);
-                page5.setVisibility(View.VISIBLE);
-                page5.startAnimation(animFadeIn);
-            }
-        });
-        suivant5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                suivant4.startAnimation(animFadeIn2);
-
-                if (!Password.getText().toString().equals(Confirme_password.getText().toString())) {
-                    Snackbar.make(ConstraintLayout, "Veillez resaisir le mot de passe", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    Password.setText(null);
-                    Confirme_password.setText(null);
-                    Password.setText(null);
-                    Confirme_password.setText(null);
-
-                }
-                else if((Password.getText().toString().length()<4 ) && (!(Password.getText()==null||Password.getText().toString().equals("")))){
-                    Snackbar.make(ConstraintLayout, "Le mot de passe dit contenir au moins 4 caracteres", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    Password.setText(null);
-                    Confirme_password.setText(null);
-                    Password.setText(null);
-                    Confirme_password.setText(null);
-                }
-                else {
-
-
-                    if (ControlForm() == true) {
-
-                        Snackbar snackbar = Snackbar
-                                .make(ConstraintLayout, "Veillez remplir tout les champs oubligatoire", Snackbar.LENGTH_LONG)
-                                .setAction("OK", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Snackbar snackbar1 = Snackbar.make(ConstraintLayout, "Merci de votre comprehension", Snackbar.LENGTH_SHORT);
-                                        snackbar1.show();
-                                        suivant4.startAnimation(animFadeIn2);
-                                        page4.setVisibility(View.GONE);
-                                        page1.setVisibility(View.VISIBLE);
-                                        page1.startAnimation(animFadeIn);
-                                        Password.setText(null);
-                                        Confirme_password.setText(null);
-                                    }
-                                });
-
-                        snackbar.show();
-                    } else {
-                        Snackbar.make(ConstraintLayout, "Inscription effectue avec succes", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                }
-            }
-
-        });
-
-
-
-
+        viewPager = (ViewPager) findViewById(R.id.view_pager_inscription);
+        PagerAdapter pagerAdapter2 = new PagerAdapter2(getSupportFragmentManager());
+        if(viewPager != null) viewPager.setAdapter(pagerAdapter2);
     }
 
-    public Boolean ControlForm(){
-        Boolean  test_nom = false;
-        Boolean  test_prenom = false;
-        Boolean  test_age = false;
-        Boolean  test_email = false;
-        Boolean  test_password = false;
-
-
-
-        if(Nom.getText()==null||Nom.getText().toString().equals("")){
-            test_nom  = true;
-
-        }
-        if(Prenom.getText()==null||Prenom.getText().toString().equals("")){
-            test_prenom  = true;
-
-        }
-        if(Age.getText()==null||Age.getText().toString().equals("")) {
-            test_age = true;
-
-
-        }
-        if(Email.getText()==null||Email.getText().toString().equals("")) {
-            test_email = true;
-
-
-        }
-        if((Password.getText()==null||Password.getText().toString().equals("")||Password.getText().toString().length()<4) || (Confirme_password.getText()==null||Confirme_password.getText().toString().equals("")) || (!Password.getText().toString().equals(Confirme_password.getText().toString())) ) {
-            test_password = true;
-
-        }
-
-        if(test_age==false && test_email==false && test_nom==false && test_prenom==false && test_password==false){
-            from_test = false;
-        }
-
-
-        return from_test;
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
+
+    public void mShowDialog(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        newDialog = new SignInFragment();
+
+        newDialog.show(fragmentManager, "Animation");
+    }
+
+    public void mDismiss(){
+        newDialog.dismiss();
+    }
+
+
+    public void returnToMainActivity(View view){
+        InscriptionActivity.this.finish();
+    }
+
 }

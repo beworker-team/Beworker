@@ -9,11 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import com.example.jolvalre.beworker.adapter.AdapterOffreH;
-import com.example.jolvalre.beworker.adapter.AdapterPost;
-import com.example.jolvalre.beworker.Offre;
+import com.example.jolvalre.beworker.entities.Offre;
 import com.example.jolvalre.beworker.R;
 
 import java.util.ArrayList;
@@ -42,9 +40,6 @@ public class PostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView =(RecyclerView) view.findViewById(R.id.gridview_fragment_post);
         ArrayList<Offre> data = new ArrayList<Offre>();
-        for(int i = 0; i<10; i++){
-            data.add(new Offre());
-        }
         AdapterOffreH adapter= new AdapterOffreH(data,LayoutInflater.from(getContext()));
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerView.setAdapter(adapter);
