@@ -109,17 +109,17 @@ public class BeworkerProvider extends ContentProvider {
 
             case OFFRE:
 
-                cursor = BEWORKER_DATA_BASE.getWritableDatabase().query(DatabaseContract.Offre.TABLE_NAME,projection,selection,selectionArgs,null,null,null);
+                cursor = BEWORKER_DATA_BASE.getWritableDatabase().query(DatabaseContract.OffreLocal.TABLE_NAME,projection,selection,selectionArgs,null,null,null);
 
                 break;
 
             case OFFRE_VIA_ID:
 
-                selection = DatabaseContract.Offre._ID + " = ? ";
+                selection = DatabaseContract.OffreLocal._ID + " = ? ";
 
                 selectionArgs[0] = uri.getLastPathSegment();
 
-                cursor = BEWORKER_DATA_BASE.getReadableDatabase().query(DatabaseContract.Offre.TABLE_NAME,projection,selection,selectionArgs,null,null,null);
+                cursor = BEWORKER_DATA_BASE.getReadableDatabase().query(DatabaseContract.OffreLocal.TABLE_NAME,projection,selection,selectionArgs,null,null,null);
 
                 break;
 
@@ -159,7 +159,7 @@ public class BeworkerProvider extends ContentProvider {
 
 
             case OFFRE:
-                long id_return_offre =  BEWORKER_DATA_BASE.getWritableDatabase().insert(DatabaseContract.Offre.TABLE_NAME, null,values);
+                long id_return_offre =  BEWORKER_DATA_BASE.getWritableDatabase().insert(DatabaseContract.OffreLocal.TABLE_NAME, null,values);
                 return uri.buildUpon().appendPath(String.valueOf(id_return_offre)).build();
 
 
@@ -211,16 +211,16 @@ public class BeworkerProvider extends ContentProvider {
 
             case OFFRE:
 
-                return BEWORKER_DATA_BASE.getWritableDatabase().delete(DatabaseContract.Offre.TABLE_NAME, selection, selectionArgs);
+                return BEWORKER_DATA_BASE.getWritableDatabase().delete(DatabaseContract.OffreLocal.TABLE_NAME, selection, selectionArgs);
 
 
             case OFFRE_VIA_ID:
 
-                selection = DatabaseContract.Offre._ID + " = ?";
+                selection = DatabaseContract.OffreLocal._ID + " = ?";
 
                 selectionArgs[0] = uri.getLastPathSegment();
 
-                return BEWORKER_DATA_BASE.getWritableDatabase().delete(DatabaseContract.Offre.TABLE_NAME,selection,selectionArgs);
+                return BEWORKER_DATA_BASE.getWritableDatabase().delete(DatabaseContract.OffreLocal.TABLE_NAME,selection,selectionArgs);
 
            /* case POSTULER:
 
@@ -260,15 +260,15 @@ public class BeworkerProvider extends ContentProvider {
 
 
             case OFFRE:
-                return  BEWORKER_DATA_BASE.getWritableDatabase().update(DatabaseContract.Offre.TABLE_NAME, values, selection, selectionArgs);
+                return  BEWORKER_DATA_BASE.getWritableDatabase().update(DatabaseContract.OffreLocal.TABLE_NAME, values, selection, selectionArgs);
 
             case OFFRE_VIA_ID:
 
-                selection = DatabaseContract.Offre._ID + " = ?";
+                selection = DatabaseContract.OffreLocal._ID + " = ?";
 
                 selectionArgs[0] = uri.getLastPathSegment();
 
-                return BEWORKER_DATA_BASE.getWritableDatabase().update(DatabaseContract.Offre.TABLE_NAME,values,selection,selectionArgs);
+                return BEWORKER_DATA_BASE.getWritableDatabase().update(DatabaseContract.OffreLocal.TABLE_NAME,values,selection,selectionArgs);
 
 
            /* case POSTULER:

@@ -6,7 +6,7 @@ public class MyCategorie {
 
     @SerializedName("id_categorie")
     private int id_categorie;
-    @SerializedName("categorie")
+    @SerializedName("nom")
     private String categorie;
 
     public MyCategorie(int id_categorie, String categorie) {

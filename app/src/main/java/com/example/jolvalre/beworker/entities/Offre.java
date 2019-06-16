@@ -61,6 +61,14 @@ public class Offre {
         this.poste = poste;
     }
 
+    public int getId_categorie() {
+        return id_categorie;
+    }
+
+    public void setId_categorie(int id_categorie) {
+        this.id_categorie = id_categorie;
+    }
+
     public String getVille() {
         return ville;
     }

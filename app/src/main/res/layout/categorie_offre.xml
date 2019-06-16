@@ -8,14 +8,19 @@
     android:paddingLeft="4dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_titre_categorie_offre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif"
-        android:text="recommandation"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text_titre_categorie_offre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorPdfBlue"
+            android:fontFamily="sans-serif"
+            android:text="recommandation"/>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view_categorie_offre"

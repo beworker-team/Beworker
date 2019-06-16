@@ -57,7 +57,7 @@ public class VotreProfilFragment extends Fragment {
         profil_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profil_emp.setImageResource(R.drawable.photo);
+                profil_emp.setImageResource(R.drawable.logo);
 
             }
         });

@@ -49,13 +49,14 @@ public class AdapterOffreCategorie extends RecyclerView.Adapter<CatOffreViewHold
         //on recupere l'offre a afficher
         final OffreCategorie oc = list.get(i);
         catOffreViewHolder.text.setText(oc.getTitre());
+        catOffreViewHolder.text.setTextColor(R.color.colorPdfBlue);
         //le layoutmanager permet d'afficher e recycleview a l'horizontal
         LinearLayoutManager layoutManager = new LinearLayoutManager(catOffreViewHolder.text.getContext());
         //on definit son orientation
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         catOffreViewHolder.recyclerView.setLayoutManager(layoutManager);
         //on recupere les offres de notre categorie
-        BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+        BeworkerService service = RetrofitInstance.getRetrofitInstanceOffre().create(BeworkerService.class);
         ArrayList<Offre> data =new ArrayList<Offre>();
         Call<ArrayList<Offre>> call = service.offreCategorie(oc.id);
         call.enqueue(new Callback<ArrayList<Offre>>() {

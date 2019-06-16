@@ -71,7 +71,7 @@ public class DatabaseContract {
         }
     }
 
-    public static final class Offre implements BaseColumns{
+    public static final class OffreLocal implements BaseColumns{
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_OFFRE).build();
 
@@ -79,11 +79,15 @@ public class DatabaseContract {
 
         public static final String COLUMN_ID_EMPLOYEUR = "id_employeur";
 
+        public static final String COLUMN_ID_CATEGORIE = "id_categorie";
+
         public static final String COLUMN_DATE_POST = "date_post";
 
         public static final String COLUMN_POSTE = "poste";
 
-        public static final String COLUMN_VILLE = "ville";
+        public static final String COLUMN_VILLES = "ville";
+
+        public static final String COLUMN_LAN = "lan";
 
         public static final String COLUMN_DESCRIPTION = "description";
 

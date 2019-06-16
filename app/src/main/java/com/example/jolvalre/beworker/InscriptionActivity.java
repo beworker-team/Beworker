@@ -35,7 +35,7 @@ public class InscriptionActivity extends AppCompatActivity {
     //    fonction passer en mode connecter
     public static void goInOnlineMode(){
 
-        BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+        BeworkerService service = RetrofitInstance.getRetrofitInstanceChercheur().create(BeworkerService.class);
 //        Date d =new Date();
 //        ChercheurV2 c = new ChercheurV2("moitoi@gmail.com",
 //                "moi",

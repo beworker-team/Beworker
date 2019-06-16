@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * Cette classe est l'adapter qui nous permet d'afficher les card_offre a l'horizontal
  * elle possede deux attributs:
- *  -list ArrayList<Offre></Offre>: la liste des elements a afficher
+ *  -list ArrayList<OffreLocal></OffreLocal>: la liste des elements a afficher
  *  -inflater LayoutInflter: permet de creer la vue en fonction de l'element a afficher
  * */
 public class AdapterOffreH extends RecyclerView.Adapter<OffreViewH> {

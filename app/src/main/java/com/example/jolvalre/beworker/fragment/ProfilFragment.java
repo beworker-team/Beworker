@@ -205,13 +205,14 @@ public class ProfilFragment extends Fragment {
                 user.setTelephone(Integer.valueOf(stel));
                 user.setVille(svil);
                 sign.show(getFragmentManager(), "Animation");
-                BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+                BeworkerService service = RetrofitInstance.getRetrofitInstanceChercheur().create(BeworkerService.class);
                 Call<ChercheurV2> call = service.updateUserInfo(user);
                 call.enqueue(new Callback<ChercheurV2>() {
                     @Override
                     public void onResponse(Call<ChercheurV2> call, Response<ChercheurV2> response) {
+                        System.out.println("\nUPDATE ====> "+call.request());
                         if (response.code()==200){
-                            Chercheur.load(response.body());
+                            Chercheur.load(response.body(),getContext());
                             user();
                             showContact(true);
                             sign.dismiss();
@@ -233,6 +234,7 @@ public class ProfilFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<ChercheurV2> call, Throwable t) {
+                        System.out.println("\nUPDATE ====> "+call.request());
                         sign.dismiss();
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                         builder.setTitle(R.string.title_error_onfailure);
@@ -263,13 +265,14 @@ public class ProfilFragment extends Fragment {
                 user.setDate_de_naissance(a);
                 user.setDomaine(d);
                 sign.show(getFragmentManager(), "Animation");
-                BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+                BeworkerService service = RetrofitInstance.getRetrofitInstanceChercheur().create(BeworkerService.class);
                 Call<ChercheurV2> call = service.updateUserInfo(user);
                 call.enqueue(new Callback<ChercheurV2>() {
                     @Override
                     public void onResponse(Call<ChercheurV2> call, Response<ChercheurV2> response) {
+                        System.out.println("\nUPDATE ====> "+call.request());
                         if (response.code()==200){
-                            Chercheur.load(response.body());
+                            Chercheur.load(response.body(),getContext());
                             showInformation();
                             showName(true);
                             sign.dismiss();
@@ -318,13 +321,13 @@ public class ProfilFragment extends Fragment {
                 user.setStatut(s);
                 user.setGenre(g);
                 sign.show(getFragmentManager(), "Animation");
-                BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+                BeworkerService service = RetrofitInstance.getRetrofitInstanceChercheur().create(BeworkerService.class);
                 Call<ChercheurV2> call = service.updateUserInfo(user);
                 call.enqueue(new Callback<ChercheurV2>() {
                     @Override
                     public void onResponse(Call<ChercheurV2> call, Response<ChercheurV2> response) {
                         if (response.code()==200){
-                            Chercheur.load(response.body());
+                            Chercheur.load(response.body(),getContext());
                             showInformation();
                             showSupp(true);
                             sign.dismiss();

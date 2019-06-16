@@ -6,13 +6,13 @@
     android:layout_gravity="center"
     android:maxWidth="165dp"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:padding="8dp">
 
     <android.support.v7.widget.CardView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="6dp"
+        android:layout_centerInParent="true">
 
 
         <LinearLayout

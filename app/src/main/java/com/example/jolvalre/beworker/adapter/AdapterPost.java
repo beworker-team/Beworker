@@ -58,7 +58,7 @@ public class AdapterPost extends BaseAdapter {
             holder = (ViewHolderOffre)convertView.getTag();
         }
         //on met ajour les information de la carte
-//        Offre o = (Offre)getItem(position);
+//        OffreLocal o = (OffreLocal)getItem(position);
 //        holder.vTitre.setText(o.getPoste());
 //        holder.vDescription.setText(o.getDescription());
 //        holder.vDate.setText(o.getDate());

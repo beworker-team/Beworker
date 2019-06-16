@@ -15,7 +15,7 @@ public class CatOffreViewHolder extends RecyclerView.ViewHolder {
 
     public CatOffreViewHolder(@NonNull View itemView) {
         super(itemView);
-        text = (TextView)itemView.findViewById(R.id.text_titre_categorie_offre);
-        recyclerView = (RecyclerView)itemView.findViewById(R.id.recycle_view_categorie_offre);
+        text = itemView.findViewById(R.id.text_titre_categorie_offre);
+        recyclerView = itemView.findViewById(R.id.recycle_view_categorie_offre);
     }
 }

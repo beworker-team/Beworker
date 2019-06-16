@@ -30,25 +30,27 @@
         android:id="@+id/refresh_online"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="MissingConstraints">
         <ImageView
             android:id="@+id/iv_refresh_online"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_refresh"
+            android:layout_above="@id/rv"
             android:clickable="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reesayer "
-            android:layout_above="@id/iv_refresh_offline"
+            android:id="@+id/rv"
+            android:layout_centerInParent="true"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="21sp"
-            android:layout_margin="56dp"/>
+            android:textSize="14sp"
+            android:layout_margin="26dp"/>
     </RelativeLayout>
-    
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view_fragment_home"
         android:layout_width="match_parent"

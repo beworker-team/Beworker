@@ -154,6 +154,10 @@ public class MakeCvActivity extends AppCompatActivity {
         this.finish();
     }
 
+    public void toback(View view){
+        this.finish();
+    }
+
     /**
      * cette methode est utilse pour generer le cv de la personne au format pdf
      * et n'set disponible qu'appartir de l'api 19
@@ -214,6 +218,16 @@ public class MakeCvActivity extends AppCompatActivity {
             try {
                 pdfDocument.writeTo(new FileOutputStream(filePath));
                 Toast.makeText(this, "Impression en cours", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Imprimer");
+                builder.setMessage("Beworker/doc/myPdf.pdf");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
             }catch (IOException e){
                 Log.e("ERROR_PRINT", e.toString());
                 Toast.makeText(this, "une erreur est survenue lors de l'impression", Toast.LENGTH_LONG).show();

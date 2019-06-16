@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +16,7 @@ import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -34,16 +34,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.TextView;
 import com.example.jolvalre.beworker.adapter.AdapterOffreCategorie;
+import com.example.jolvalre.beworker.adapter.AdapterOffreH;
 import com.example.jolvalre.beworker.adapter.PagerAdapter;
 import com.example.jolvalre.beworker.entities.Chercheur;
 import com.example.jolvalre.beworker.entities.MyCategorie;
 import com.example.jolvalre.beworker.entities.Offre;
 import com.example.jolvalre.beworker.entities.OffreCategorie;
-import com.example.jolvalre.beworker.fragment.SignInFragment;
 import com.example.jolvalre.beworker.network.RetrofitInstance;
 import com.example.jolvalre.beworker.service.BeworkerService;
 
@@ -181,6 +180,23 @@ public class MainActivity extends AppCompatActivity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         //searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                System.out.println("======> "+s);
+                if (s == null || s== "") return false;
+                Intent intent = new Intent(MainActivity.this,SearchableActivity.class);
+                intent.setAction(Intent.ACTION_SEARCH);
+                intent.putExtra(SearchableActivity.QUERY, s);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -223,14 +239,14 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
 
-                    BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+                    BeworkerService service = RetrofitInstance.getRetrofitInstanceChercheur().create(BeworkerService.class);
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                     Call<Integer> call = service.deconnexion(preferences.getString(Chercheur.EMAIL, ""));
                     call.enqueue(new Callback<Integer>() {
                         @Override
                         public void onResponse(Call<Integer> call, Response<Integer> response) {
                             if(response.code() == 200){
-                                System.out.println(response.toString());
+
                                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                                 intent.putExtra(MainActivity.ONLINE_MODE, "OFF");
                                 startActivity(intent);
@@ -278,6 +294,18 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, MakeCvActivity.class);
             startActivity(intent);
         }
+        else if (id== R.id.nav_share_app){
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,"lien vers l'application");
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+
+        }
+        else if (id==R.id.nav_contact_us){
+            Intent intent = new Intent(this, Contact_us.class);
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -289,10 +317,10 @@ public class MainActivity extends AppCompatActivity
         //la liste des categorie
 
 
-        offlineRV.setAdapter(new AdapterOffreCategorie(LayoutInflater.from(MainActivity.this), dataOC));
+        offlineRV.setAdapter( new AdapterOffreH( new ArrayList<Offre>(), LayoutInflater.from(MainActivity.this) ) );
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         //RecyclerView rv =(RecyclerView) view.findViewById(R.id.recycle_view_fragment_home);
-        offlineRV.setLayoutManager(layoutManager);
+        offlineRV.setLayoutManager(new GridLayoutManager(this,2));
         loadingData();
         resetDataUser();
 
@@ -362,33 +390,55 @@ public class MainActivity extends AppCompatActivity
     public void loadingData(){
         showWaiting(true);
         dataOC = new ArrayList<OffreCategorie>();
-        BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
-        Call<ArrayList<MyCategorie>> call = service.listCategories();
-        call.enqueue(new Callback<ArrayList<MyCategorie>>() {
+        BeworkerService service = RetrofitInstance.getRetrofitInstanceOffre().create(BeworkerService.class);
+//        Call<ArrayList<MyCategorie>> call = service.listCategories();
+//        call.enqueue(new Callback<ArrayList<MyCategorie>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<MyCategorie>> call, Response<ArrayList<MyCategorie>> response) {
+//                showWaiting(false);
+//                if (response.code()!= 200){
+//                    showRefresh();
+//                    return;
+//                }
+//
+//                ArrayList<MyCategorie> list = response.body();
+//                if(list != null) for (MyCategorie c: list ){
+//
+//                    OffreCategorie oc =new OffreCategorie();
+//                    oc.id = c.getId_categorie();
+//                    oc.setTitre(c.getCategorie());
+//                    dataOC.add(oc);
+//                }
+//
+//                ( (AdapterOffreCategorie)offlineRV.getAdapter() ).updateData(dataOC);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<MyCategorie>> call, Throwable t) {
+//                //TODO: EN_CAS_DEcHEC_1 lorsaue le chargement des categorie echoue
+//                showRefresh();
+//                showWaiting(false);
+//            }
+//        });
+
+        Call<ArrayList<Offre>> call1 = service.getAllOffre();
+        call1.enqueue(new Callback<ArrayList<Offre>>() {
             @Override
-            public void onResponse(Call<ArrayList<MyCategorie>> call, Response<ArrayList<MyCategorie>> response) {
+            public void onResponse(Call<ArrayList<Offre>> call, Response<ArrayList<Offre>> response) {
                 showWaiting(false);
-                if (response.code()!= 200){
-                    showRefresh();
-                    return;
+                if (response.code() == 200){
+                    ArrayList<Offre> d =new ArrayList<Offre>();
+                    int max =100;
+                    if (response.body().size()<max)max =response.body().size();
+
+                    for (int i=0; i<max; i++) d.add(response.body().get(i));
+
+                    ( (AdapterOffreH)offlineRV.getAdapter() ).updateData(d);
                 }
-
-                ArrayList<MyCategorie> list = response.body();
-                if(list != null) for (MyCategorie c: list ){
-
-                    OffreCategorie oc =new OffreCategorie();
-                    oc.id = c.getId_categorie();
-                    oc.setTitre(c.getCategorie());
-                    dataOC.add(oc);
-                }
-
-                Toast.makeText(getBaseContext(),"yesss", Toast.LENGTH_LONG).show();
-                ( (AdapterOffreCategorie)offlineRV.getAdapter() ).updateData(dataOC);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<MyCategorie>> call, Throwable t) {
-                //TODO: EN_CAS_DEcHEC_1 lorsaue le chargement des categorie echoue
+            public void onFailure(Call<ArrayList<Offre>> call, Throwable t) {
                 showRefresh();
                 showWaiting(false);
             }
@@ -403,6 +453,9 @@ public class MainActivity extends AppCompatActivity
     public void showWaiting(boolean visible){
         View refresh = findViewById(R.id.waitin_offline);
         refresh.setVisibility(visible? View.VISIBLE: View.GONE) ;
+    }
+
+    public void toback(View view) {
     }
 
     @SuppressLint("ValidFragment")
@@ -448,9 +501,9 @@ public class MainActivity extends AppCompatActivity
                     call.enqueue(new Callback<Integer>() {
                         @Override
                         public void onResponse(Call<Integer> call, Response<Integer> response) {
-                            System.out.println("response code deconnexion "+response.code());
+
                             if(response.code() == 200){
-                                System.out.println(response.toString());
+
                                 Intent intent = new Intent(getContext(), MainActivity.class);
                                 intent.putExtra(MainActivity.ONLINE_MODE, "OFF");
                                 dismiss();

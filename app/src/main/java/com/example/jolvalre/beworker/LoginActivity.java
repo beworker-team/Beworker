@@ -337,7 +337,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     //    fonction passer en mode connecter
     private void goInOnlineMode(){
 
-        BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+        BeworkerService service = RetrofitInstance.getRetrofitInstanceChercheur().create(BeworkerService.class);
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         Call<ChercheurV2> call = service.authentifiaction(email,password);
@@ -386,6 +386,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onFailure(Call<ChercheurV2> call, Throwable t) {
+                //TODO:boite de dialogue pour le message verifier votre connexion internet
                 System.out.println("BODY_FAKE_0"+ call.request());
                 System.out.println("igor nd ");
             }

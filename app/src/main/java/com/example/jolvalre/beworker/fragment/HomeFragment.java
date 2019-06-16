@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
     public void loadingData(){
         showWaiting(true);
         dataOC = new ArrayList<OffreCategorie>();
-        BeworkerService service = RetrofitInstance.getRetrofitInstance().create(BeworkerService.class);
+        BeworkerService service = RetrofitInstance.getRetrofitInstanceOffre().create(BeworkerService.class);
         Call<ArrayList<MyCategorie>> call = service.listCategories();
         call.enqueue(new Callback<ArrayList<MyCategorie>>() {
             @Override

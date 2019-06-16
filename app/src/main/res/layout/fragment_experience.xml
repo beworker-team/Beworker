@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="26dp"
-                    android:text="@string/experiences_pro"
+                    android:text="@string/experiences_professionnelles"
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text" />

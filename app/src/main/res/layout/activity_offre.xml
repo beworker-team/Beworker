@@ -134,15 +134,19 @@
                         android:layout_height="wrap_content"
                         android:padding="8dp"
                         android:src="@drawable/ic_reply"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:clickable="true"
+                        android:onClick="arrawBack"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
-                    <ImageView
+                    <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/share_offres"
+                        android:background="@color/colorPrimaryDark"
                         android:padding="8dp"
                         android:src="@drawable/ic_share_white_32dp"
                         android:layout_centerInParent="true"/>
@@ -152,10 +156,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <ImageView
+                        android:id="@+id/iv_save_offre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
-                        android:src="@drawable/ic_check_white_32dp"
+                        android:onClick="saveIt"
+                        android:src="@drawable/ic_favorite_border_white_24dp"
                         android:layout_centerInParent="true"/>
                 </RelativeLayout>
             </LinearLayout>
