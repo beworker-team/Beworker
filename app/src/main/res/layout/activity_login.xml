@@ -156,7 +156,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/prompt_email"
-                            android:text="joelvalere3@gmail.com"
+                            android:text=""
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:singleLine="true" />
@@ -186,7 +186,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/prompt_password"
-                            android:text="test1234"
+                            android:text=""
                             android:imeActionId="6"
                             android:imeActionLabel="@string/action_sign_in"
                             android:imeOptions="actionUnspecified"

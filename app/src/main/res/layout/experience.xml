@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="18dp" />
@@ -32,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
+                android:paddingLeft="24dp"
                 android:paddingTop="16dp"
                 android:paddingRight="24dp"
-                android:paddingLeft="24dp"
                 android:paddingBottom="10dp">
 
                 <android.support.design.widget.TextInputLayout
@@ -57,28 +58,30 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:paddingBottom="10dp"
+                android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                android:paddingLeft="24dp">
+                android:paddingBottom="10dp">
 
                 <android.support.design.widget.TextInputLayout
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/et_fin_expr"
-                        android:layout_width="270dp"
+                        android:layout_width="190dp"
                         android:layout_height="wrap_content"
                         android:hint="@string/date_de_fin"
                         android:inputType="date" />
                 </android.support.design.widget.TextInputLayout>
+
                 <CheckBox
                     android:id="@+id/cb_present_expr"
-                    android:text="@string/actuel"
-                    android:layout_marginLeft="182dp"
-                    android:layout_marginTop="14dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/actuel" />
 
             </RelativeLayout>
 
@@ -87,9 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:paddingBottom="10dp"
+                android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                android:paddingLeft="24dp">
+                android:paddingBottom="10dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
@@ -111,9 +114,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:paddingBottom="10dp"
+                android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                android:paddingLeft="24dp">
+                android:paddingBottom="10dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
@@ -133,9 +136,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:paddingBottom="10dp"
+                android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                android:paddingLeft="24dp">
+                android:paddingBottom="10dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
@@ -155,9 +158,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:paddingBottom="10dp"
+                android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                android:paddingLeft="24dp">
+                android:paddingBottom="10dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
@@ -177,9 +180,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:paddingBottom="40dp"
+                android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                android:paddingLeft="24dp">
+                android:paddingBottom="40dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"

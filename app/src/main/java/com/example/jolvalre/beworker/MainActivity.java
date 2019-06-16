@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity
             builder.setTitle(R.string.title_deconnexion);
             builder.setMessage(R.string.message_ask_deconnxion);
             builder.setCancelable(false);
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -297,9 +297,9 @@ public class MainActivity extends AppCompatActivity
         else if (id== R.id.nav_share_app){
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT,"lien vers l'application");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.link_dowload_app));
                     sendIntent.setType("text/plain");
-                    startActivity(sendIntent);
+                    startActivity(Intent.createChooser(sendIntent,"Partager via"));
 
         }
         else if (id==R.id.nav_contact_us){

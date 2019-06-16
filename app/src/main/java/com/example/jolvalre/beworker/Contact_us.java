@@ -21,7 +21,7 @@ public class Contact_us extends AppCompatActivity {
 
     public void twitter_clic(View view) {
         Intent sendIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link_twitter)));
-        startActivity(sendIntent);
+//        startActivity(sendIntent);
     }
 
     public void gmail_clic(View view) {

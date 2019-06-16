@@ -79,10 +79,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="niveau">Niveau</string>
     <string name="informations_personnelles">Informations personnelles</string>
-    <string name="experiences_professionnelles">Experiences professionnelles</string>
+    <string name="experiences_professionnelles">Expériences professionnelles</string>
     <string name="formation">Formations</string>
     <string name="preference">Préférence, ...</string>
-    <string name="experiences_pro">Experiences_pro</string>
+    <string name="experiences_pro">Expériences_pro</string>
     <string name="nationalite">Nationalité</string>
     <string name="date_de_fin">Date de fin</string>
     <string name="date_de_debut">Date de début</string>
@@ -109,14 +109,14 @@
     <string name="sexeprofil">Sexe</string>
     <string name="maskpw">********</string>
     <string name="dateformat">yyyy-mm-dd</string>
-    <string name="message_error_onResponse">Veiller reessayer !</string>
-    <string name="title_error_onresponse">Probleme de serveur !</string>
-    <string name="title_error_onfailure">Probleme de connexion !</string>
-    <string name="message_onfailure">Verifier votre connexion internet et reesssayer</string>
-    <string name="title_deconnexion">Deconnexion</string>
-    <string name="message_ask_deconnxion">Voulez vous vous deconnecter ?</string>
+    <string name="message_error_onResponse">Veuillez réessayer !</string>
+    <string name="title_error_onresponse">Problème de serveur !</string>
+    <string name="title_error_onfailure">Problème de connexion !</string>
+    <string name="message_onfailure">Vérifiez votre connexion internet et réesssayez</string>
+    <string name="title_deconnexion">Déconnexion</string>
+    <string name="message_ask_deconnxion">Voulez vous vous déconnecter ?</string>
     <string name="warning">Attention !</string>
-    <string name="error_version_sdk_print_cv">Cette fonctionnnalite n\'est pas disponible avec votre version d\'android</string>
+    <string name="error_version_sdk_print_cv">Cette fonctionnnalité n\'est pas disponible avec votre version d\'Android</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -194,5 +194,6 @@
     <string name="no_match">Aucun resultat trouve!!</string>
     <string name="link_whatsapp">https://chat.whatsapp.com/JhxEWjPvKwfI0iHvhvDNsG</string>
     <string name="link_twitter">https://www.twitter.com</string>
+    <string name="link_dowload_app">https://drive.google.com/open?id=12qDdma69r9A3cOswto4KoeTU1SFq1Y1X</string>
 
 </resources>
